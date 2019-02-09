@@ -7,14 +7,25 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C75E0A26C7D5E1C8DACDB465 /* Pods_trakt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EE7A2956962F127E23863A4 /* Pods_trakt.framework */; };
 		E1A640F9220F47D300C492C5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A640F8220F47D300C492C5 /* AppDelegate.swift */; };
 		E1A640FB220F47D300C492C5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A640FA220F47D300C492C5 /* ViewController.swift */; };
 		E1A640FE220F47D300C492C5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E1A640FC220F47D300C492C5 /* Main.storyboard */; };
 		E1A64100220F47D400C492C5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E1A640FF220F47D400C492C5 /* Assets.xcassets */; };
 		E1A64103220F47D400C492C5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E1A64101220F47D400C492C5 /* LaunchScreen.storyboard */; };
+		E1A6410D220F483B00C492C5 /* TraktEndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A6410C220F483B00C492C5 /* TraktEndPoint.swift */; };
+		E1A6410F220F485000C492C5 /* TraktClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A6410E220F485000C492C5 /* TraktClient.swift */; };
+		E1A64111220F49ED00C492C5 /* APIConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A64110220F49ED00C492C5 /* APIConfiguration.swift */; };
+		E1A64113220F4CC000C492C5 /* ServerHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A64112220F4CC000C492C5 /* ServerHelper.swift */; };
+		E1A64116220F4D3C00C492C5 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A64115220F4D3C00C492C5 /* Constants.swift */; };
+		E1A6411B220F51A600C492C5 /* Trakt+DefaultsKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A6411A220F51A600C492C5 /* Trakt+DefaultsKeys.swift */; };
+		E1A6411E220F54A600C492C5 /* LoginResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A6411D220F54A600C492C5 /* LoginResponse.swift */; };
+		E1A64121220F550B00C492C5 /* LoginBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A64120220F550B00C492C5 /* LoginBody.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2EE7A2956962F127E23863A4 /* Pods_trakt.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_trakt.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CB2E8B4608B072E33805C50C /* Pods-trakt.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-trakt.debug.xcconfig"; path = "Pods/Target Support Files/Pods-trakt/Pods-trakt.debug.xcconfig"; sourceTree = "<group>"; };
 		E1A640F5220F47D300C492C5 /* trakt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = trakt.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1A640F8220F47D300C492C5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E1A640FA220F47D300C492C5 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -22,6 +33,15 @@
 		E1A640FF220F47D400C492C5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E1A64102220F47D400C492C5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E1A64104220F47D400C492C5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E1A6410C220F483B00C492C5 /* TraktEndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraktEndPoint.swift; sourceTree = "<group>"; };
+		E1A6410E220F485000C492C5 /* TraktClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraktClient.swift; sourceTree = "<group>"; };
+		E1A64110220F49ED00C492C5 /* APIConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIConfiguration.swift; sourceTree = "<group>"; };
+		E1A64112220F4CC000C492C5 /* ServerHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerHelper.swift; sourceTree = "<group>"; };
+		E1A64115220F4D3C00C492C5 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		E1A6411A220F51A600C492C5 /* Trakt+DefaultsKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Trakt+DefaultsKeys.swift"; sourceTree = "<group>"; };
+		E1A6411D220F54A600C492C5 /* LoginResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResponse.swift; sourceTree = "<group>"; };
+		E1A64120220F550B00C492C5 /* LoginBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginBody.swift; sourceTree = "<group>"; };
+		E988233235C7C705B1DA6211 /* Pods-trakt.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-trakt.release.xcconfig"; path = "Pods/Target Support Files/Pods-trakt/Pods-trakt.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,17 +49,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C75E0A26C7D5E1C8DACDB465 /* Pods_trakt.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9D937B5D66FB7ED2BD4709E7 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2EE7A2956962F127E23863A4 /* Pods_trakt.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		AA26DEB0836CBA0413B96669 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				CB2E8B4608B072E33805C50C /* Pods-trakt.debug.xcconfig */,
+				E988233235C7C705B1DA6211 /* Pods-trakt.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		E1A640EC220F47D300C492C5 = {
 			isa = PBXGroup;
 			children = (
 				E1A640F7220F47D300C492C5 /* trakt */,
 				E1A640F6220F47D300C492C5 /* Products */,
+				AA26DEB0836CBA0413B96669 /* Pods */,
+				9D937B5D66FB7ED2BD4709E7 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -54,6 +94,9 @@
 		E1A640F7220F47D300C492C5 /* trakt */ = {
 			isa = PBXGroup;
 			children = (
+				E1A64119220F519200C492C5 /* Extensions */,
+				E1A64114220F4D2A00C492C5 /* Constants */,
+				E1A6410A220F481000C492C5 /* Networking */,
 				E1A640F8220F47D300C492C5 /* AppDelegate.swift */,
 				E1A640FA220F47D300C492C5 /* ViewController.swift */,
 				E1A640FC220F47D300C492C5 /* Main.storyboard */,
@@ -64,6 +107,59 @@
 			path = trakt;
 			sourceTree = "<group>";
 		};
+		E1A6410A220F481000C492C5 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				E1A6410B220F481900C492C5 /* APIs */,
+				E1A6411F220F54E800C492C5 /* Bodies */,
+				E1A6411C220F547A00C492C5 /* Responses */,
+				E1A64112220F4CC000C492C5 /* ServerHelper.swift */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
+		E1A6410B220F481900C492C5 /* APIs */ = {
+			isa = PBXGroup;
+			children = (
+				E1A6410C220F483B00C492C5 /* TraktEndPoint.swift */,
+				E1A6410E220F485000C492C5 /* TraktClient.swift */,
+				E1A64110220F49ED00C492C5 /* APIConfiguration.swift */,
+			);
+			path = APIs;
+			sourceTree = "<group>";
+		};
+		E1A64114220F4D2A00C492C5 /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				E1A64115220F4D3C00C492C5 /* Constants.swift */,
+			);
+			path = Constants;
+			sourceTree = "<group>";
+		};
+		E1A64119220F519200C492C5 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				E1A6411A220F51A600C492C5 /* Trakt+DefaultsKeys.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		E1A6411C220F547A00C492C5 /* Responses */ = {
+			isa = PBXGroup;
+			children = (
+				E1A6411D220F54A600C492C5 /* LoginResponse.swift */,
+			);
+			path = Responses;
+			sourceTree = "<group>";
+		};
+		E1A6411F220F54E800C492C5 /* Bodies */ = {
+			isa = PBXGroup;
+			children = (
+				E1A64120220F550B00C492C5 /* LoginBody.swift */,
+			);
+			path = Bodies;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -71,9 +167,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E1A64107220F47D400C492C5 /* Build configuration list for PBXNativeTarget "trakt" */;
 			buildPhases = (
+				A781F1D01ECB01394BF1BCB4 /* [CP] Check Pods Manifest.lock */,
 				E1A640F1220F47D300C492C5 /* Sources */,
 				E1A640F2220F47D300C492C5 /* Frameworks */,
 				E1A640F3220F47D300C492C5 /* Resources */,
+				C141553E3675386722C8A57E /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -130,13 +228,78 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		A781F1D01ECB01394BF1BCB4 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-trakt-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C141553E3675386722C8A57E /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-trakt/Pods-trakt-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/AlamofireNetworkActivityLogger/AlamofireNetworkActivityLogger.framework",
+				"${BUILT_PRODUCTS_DIR}/CodableAlamofire/CodableAlamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
+				"${BUILT_PRODUCTS_DIR}/SwifterSwift/SwifterSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyUserDefaults/SwiftyUserDefaults.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireNetworkActivityLogger.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CodableAlamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwifterSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyUserDefaults.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-trakt/Pods-trakt-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		E1A640F1220F47D300C492C5 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E1A6410D220F483B00C492C5 /* TraktEndPoint.swift in Sources */,
+				E1A6410F220F485000C492C5 /* TraktClient.swift in Sources */,
+				E1A6411E220F54A600C492C5 /* LoginResponse.swift in Sources */,
+				E1A64113220F4CC000C492C5 /* ServerHelper.swift in Sources */,
+				E1A64111220F49ED00C492C5 /* APIConfiguration.swift in Sources */,
+				E1A6411B220F51A600C492C5 /* Trakt+DefaultsKeys.swift in Sources */,
+				E1A64116220F4D3C00C492C5 /* Constants.swift in Sources */,
 				E1A640FB220F47D300C492C5 /* ViewController.swift in Sources */,
 				E1A640F9220F47D300C492C5 /* AppDelegate.swift in Sources */,
+				E1A64121220F550B00C492C5 /* LoginBody.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -280,6 +443,7 @@
 		};
 		E1A64108220F47D400C492C5 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CB2E8B4608B072E33805C50C /* Pods-trakt.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -298,6 +462,7 @@
 		};
 		E1A64109220F47D400C492C5 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E988233235C7C705B1DA6211 /* Pods-trakt.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
