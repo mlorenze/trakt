@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		C75E0A26C7D5E1C8DACDB465 /* Pods_trakt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EE7A2956962F127E23863A4 /* Pods_trakt.framework */; };
 		E1A640F9220F47D300C492C5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A640F8220F47D300C492C5 /* AppDelegate.swift */; };
-		E1A640FB220F47D300C492C5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A640FA220F47D300C492C5 /* ViewController.swift */; };
+		E1A640FB220F47D300C492C5 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A640FA220F47D300C492C5 /* HomeViewController.swift */; };
 		E1A640FE220F47D300C492C5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E1A640FC220F47D300C492C5 /* Main.storyboard */; };
 		E1A64100220F47D400C492C5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E1A640FF220F47D400C492C5 /* Assets.xcassets */; };
 		E1A64103220F47D400C492C5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E1A64101220F47D400C492C5 /* LaunchScreen.storyboard */; };
@@ -18,9 +18,19 @@
 		E1A64111220F49ED00C492C5 /* APIConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A64110220F49ED00C492C5 /* APIConfiguration.swift */; };
 		E1A64113220F4CC000C492C5 /* ServerHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A64112220F4CC000C492C5 /* ServerHelper.swift */; };
 		E1A64116220F4D3C00C492C5 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A64115220F4D3C00C492C5 /* Constants.swift */; };
-		E1A6411B220F51A600C492C5 /* Trakt+DefaultsKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A6411A220F51A600C492C5 /* Trakt+DefaultsKeys.swift */; };
-		E1A6411E220F54A600C492C5 /* LoginResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A6411D220F54A600C492C5 /* LoginResponse.swift */; };
+		E1A6411B220F51A600C492C5 /* DefaultsKeys+Trakt.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A6411A220F51A600C492C5 /* DefaultsKeys+Trakt.swift */; };
+		E1A6411E220F54A600C492C5 /* TokenResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A6411D220F54A600C492C5 /* TokenResponse.swift */; };
 		E1A64121220F550B00C492C5 /* LoginBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A64120220F550B00C492C5 /* LoginBody.swift */; };
+		E1A64123220F6B5300C492C5 /* DateFormatter+Trakt.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A64122220F6B5300C492C5 /* DateFormatter+Trakt.swift */; };
+		E1A64126220F6C2700C492C5 /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A64125220F6C2700C492C5 /* Movie.swift */; };
+		E1A64128220F6C3200C492C5 /* Show.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A64127220F6C3200C492C5 /* Show.swift */; };
+		E1A6412A220F6C3E00C492C5 /* Season.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A64129220F6C3E00C492C5 /* Season.swift */; };
+		E1A6412C220F6C4800C492C5 /* Episode.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A6412B220F6C4800C492C5 /* Episode.swift */; };
+		E1A6412E220F6C5400C492C5 /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A6412D220F6C5400C492C5 /* Person.swift */; };
+		E1A64131220F720C00C492C5 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A64130220F720C00C492C5 /* SearchViewController.swift */; };
+		E1A64133220F737700C492C5 /* Interactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A64132220F737700C492C5 /* Interactor.swift */; };
+		E1A64135220F7FC700C492C5 /* EmptyResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A64134220F7FC600C492C5 /* EmptyResponse.swift */; };
+		E1A64137220F92B200C492C5 /* TraktAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A64136220F92B200C492C5 /* TraktAPIManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,7 +38,7 @@
 		CB2E8B4608B072E33805C50C /* Pods-trakt.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-trakt.debug.xcconfig"; path = "Pods/Target Support Files/Pods-trakt/Pods-trakt.debug.xcconfig"; sourceTree = "<group>"; };
 		E1A640F5220F47D300C492C5 /* trakt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = trakt.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1A640F8220F47D300C492C5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		E1A640FA220F47D300C492C5 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		E1A640FA220F47D300C492C5 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		E1A640FD220F47D300C492C5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E1A640FF220F47D400C492C5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E1A64102220F47D400C492C5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -38,9 +48,19 @@
 		E1A64110220F49ED00C492C5 /* APIConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIConfiguration.swift; sourceTree = "<group>"; };
 		E1A64112220F4CC000C492C5 /* ServerHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerHelper.swift; sourceTree = "<group>"; };
 		E1A64115220F4D3C00C492C5 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		E1A6411A220F51A600C492C5 /* Trakt+DefaultsKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Trakt+DefaultsKeys.swift"; sourceTree = "<group>"; };
-		E1A6411D220F54A600C492C5 /* LoginResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResponse.swift; sourceTree = "<group>"; };
+		E1A6411A220F51A600C492C5 /* DefaultsKeys+Trakt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DefaultsKeys+Trakt.swift"; sourceTree = "<group>"; };
+		E1A6411D220F54A600C492C5 /* TokenResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenResponse.swift; sourceTree = "<group>"; };
 		E1A64120220F550B00C492C5 /* LoginBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginBody.swift; sourceTree = "<group>"; };
+		E1A64122220F6B5300C492C5 /* DateFormatter+Trakt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+Trakt.swift"; sourceTree = "<group>"; };
+		E1A64125220F6C2700C492C5 /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
+		E1A64127220F6C3200C492C5 /* Show.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Show.swift; sourceTree = "<group>"; };
+		E1A64129220F6C3E00C492C5 /* Season.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Season.swift; sourceTree = "<group>"; };
+		E1A6412B220F6C4800C492C5 /* Episode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Episode.swift; sourceTree = "<group>"; };
+		E1A6412D220F6C5400C492C5 /* Person.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
+		E1A64130220F720C00C492C5 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		E1A64132220F737700C492C5 /* Interactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interactor.swift; sourceTree = "<group>"; };
+		E1A64134220F7FC600C492C5 /* EmptyResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyResponse.swift; sourceTree = "<group>"; };
+		E1A64136220F92B200C492C5 /* TraktAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraktAPIManager.swift; sourceTree = "<group>"; };
 		E988233235C7C705B1DA6211 /* Pods-trakt.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-trakt.release.xcconfig"; path = "Pods/Target Support Files/Pods-trakt/Pods-trakt.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -94,11 +114,12 @@
 		E1A640F7220F47D300C492C5 /* trakt */ = {
 			isa = PBXGroup;
 			children = (
+				E1A6412F220F71F200C492C5 /* Scenes */,
+				E1A64124220F6BE600C492C5 /* Model */,
 				E1A64119220F519200C492C5 /* Extensions */,
 				E1A64114220F4D2A00C492C5 /* Constants */,
 				E1A6410A220F481000C492C5 /* Networking */,
 				E1A640F8220F47D300C492C5 /* AppDelegate.swift */,
-				E1A640FA220F47D300C492C5 /* ViewController.swift */,
 				E1A640FC220F47D300C492C5 /* Main.storyboard */,
 				E1A640FF220F47D400C492C5 /* Assets.xcassets */,
 				E1A64101220F47D400C492C5 /* LaunchScreen.storyboard */,
@@ -114,6 +135,8 @@
 				E1A6411F220F54E800C492C5 /* Bodies */,
 				E1A6411C220F547A00C492C5 /* Responses */,
 				E1A64112220F4CC000C492C5 /* ServerHelper.swift */,
+				E1A64132220F737700C492C5 /* Interactor.swift */,
+				E1A64136220F92B200C492C5 /* TraktAPIManager.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -139,7 +162,8 @@
 		E1A64119220F519200C492C5 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				E1A6411A220F51A600C492C5 /* Trakt+DefaultsKeys.swift */,
+				E1A6411A220F51A600C492C5 /* DefaultsKeys+Trakt.swift */,
+				E1A64122220F6B5300C492C5 /* DateFormatter+Trakt.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -147,7 +171,8 @@
 		E1A6411C220F547A00C492C5 /* Responses */ = {
 			isa = PBXGroup;
 			children = (
-				E1A6411D220F54A600C492C5 /* LoginResponse.swift */,
+				E1A6411D220F54A600C492C5 /* TokenResponse.swift */,
+				E1A64134220F7FC600C492C5 /* EmptyResponse.swift */,
 			);
 			path = Responses;
 			sourceTree = "<group>";
@@ -158,6 +183,27 @@
 				E1A64120220F550B00C492C5 /* LoginBody.swift */,
 			);
 			path = Bodies;
+			sourceTree = "<group>";
+		};
+		E1A64124220F6BE600C492C5 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				E1A64125220F6C2700C492C5 /* Movie.swift */,
+				E1A64127220F6C3200C492C5 /* Show.swift */,
+				E1A64129220F6C3E00C492C5 /* Season.swift */,
+				E1A6412B220F6C4800C492C5 /* Episode.swift */,
+				E1A6412D220F6C5400C492C5 /* Person.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		E1A6412F220F71F200C492C5 /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				E1A640FA220F47D300C492C5 /* HomeViewController.swift */,
+				E1A64130220F720C00C492C5 /* SearchViewController.swift */,
+			);
+			path = Scenes;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -171,7 +217,7 @@
 				E1A640F1220F47D300C492C5 /* Sources */,
 				E1A640F2220F47D300C492C5 /* Frameworks */,
 				E1A640F3220F47D300C492C5 /* Resources */,
-				C141553E3675386722C8A57E /* [CP] Embed Pods Frameworks */,
+				24A00FEDB8091D837F0F2FD3 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -229,29 +275,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		A781F1D01ECB01394BF1BCB4 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-trakt-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		C141553E3675386722C8A57E /* [CP] Embed Pods Frameworks */ = {
+		24A00FEDB8091D837F0F2FD3 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -283,6 +307,28 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-trakt/Pods-trakt-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		A781F1D01ECB01394BF1BCB4 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-trakt-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -290,15 +336,25 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E1A64135220F7FC700C492C5 /* EmptyResponse.swift in Sources */,
 				E1A6410D220F483B00C492C5 /* TraktEndPoint.swift in Sources */,
 				E1A6410F220F485000C492C5 /* TraktClient.swift in Sources */,
-				E1A6411E220F54A600C492C5 /* LoginResponse.swift in Sources */,
+				E1A64126220F6C2700C492C5 /* Movie.swift in Sources */,
+				E1A64131220F720C00C492C5 /* SearchViewController.swift in Sources */,
+				E1A6411E220F54A600C492C5 /* TokenResponse.swift in Sources */,
 				E1A64113220F4CC000C492C5 /* ServerHelper.swift in Sources */,
 				E1A64111220F49ED00C492C5 /* APIConfiguration.swift in Sources */,
-				E1A6411B220F51A600C492C5 /* Trakt+DefaultsKeys.swift in Sources */,
+				E1A6411B220F51A600C492C5 /* DefaultsKeys+Trakt.swift in Sources */,
+				E1A64123220F6B5300C492C5 /* DateFormatter+Trakt.swift in Sources */,
 				E1A64116220F4D3C00C492C5 /* Constants.swift in Sources */,
-				E1A640FB220F47D300C492C5 /* ViewController.swift in Sources */,
+				E1A640FB220F47D300C492C5 /* HomeViewController.swift in Sources */,
+				E1A64128220F6C3200C492C5 /* Show.swift in Sources */,
+				E1A64133220F737700C492C5 /* Interactor.swift in Sources */,
 				E1A640F9220F47D300C492C5 /* AppDelegate.swift in Sources */,
+				E1A64137220F92B200C492C5 /* TraktAPIManager.swift in Sources */,
+				E1A6412A220F6C3E00C492C5 /* Season.swift in Sources */,
+				E1A6412C220F6C4800C492C5 /* Episode.swift in Sources */,
+				E1A6412E220F6C5400C492C5 /* Person.swift in Sources */,
 				E1A64121220F550B00C492C5 /* LoginBody.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

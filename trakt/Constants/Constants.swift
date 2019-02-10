@@ -12,11 +12,28 @@ struct K {
 
     /*----------Networking----------*/
     struct ProductionServer {
+        static let authURL = "https://trakt.tv"
         static let traktURL = "https://api.trakt.tv"
     }
 
     struct StageServer {
+        static let authURL = "https://trakt.tv"
         static let traktURL = "https://api-staging.trakt.tv"
+    }
+    
+    struct AuthorizeAppParameters {
+        
+        struct Key {
+            static let responseType = "response_type"
+            static let clientId = "client_id"
+            static let redirectURI = "redirect_uri"
+            static let state = "state"
+        }
+
+        struct Value {
+            static let responseType = "code"
+            static let redirectURI = "https://trakt.tv"
+        }
     }
     
 }
@@ -29,13 +46,23 @@ struct ServerConfig {
 }
 
 enum HTTPHeaderField: String {
-    case authentication = "Authorization"
-    case contentType = "Content-Type"
+    case contentType = "Content-type"
+    case traktApiKey = "trakt-api-key"
+    case traktApiVersion = "trakt-api-version"
+    case authorization = "Authorization"
     case acceptType = "Accept"
-    case acceptEncoding = "Accept-Encoding"
-    case acceptToken = "Access-Token"
 }
 
 enum ContentType: String {
     case json = "application/json"
+}
+
+enum TrankApi: String {
+    case key = ""
+    case version = "2"
+}
+
+enum TrankClient: String {
+    case id = "40394f912bbbd855a9a89395d0262630ca352025740137556d4beb9cd1696983"
+    case secret = "5a8e0d82e6b9cd9d1a8b76638ecb9c7e1a57a6f14ba9affbb58ecdf52ebe4010"
 }

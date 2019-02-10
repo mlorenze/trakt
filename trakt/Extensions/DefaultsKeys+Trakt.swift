@@ -1,5 +1,5 @@
 //
-//  Trakt+DefaultKeys.swift
+//  DefaultKeys+Trakt.swift
 //  trakt
 //
 //  Created by Manuel Lorenze Alagna on 2/9/19.
@@ -10,5 +10,7 @@ import Foundation
 import SwiftyUserDefaults
 
 extension DefaultsKeys {
-    static let sessionToken = DefaultsKey<String?>("sessionToken")
+    
+    static let accessToken = DefaultsKey<String?>("access_token")
+    
 }

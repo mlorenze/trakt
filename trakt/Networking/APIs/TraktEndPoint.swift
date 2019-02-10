@@ -10,41 +10,40 @@ import Foundation
 import CodableAlamofire
 import Alamofire
 import SwiftyUserDefaults
+import SwifterSwift
 
 enum TraktEndPoint: APIConfiguration {
     
-    case postLogin(email: String, password: String?)
+    case authorize()
     
     var method: HTTPMethod {
         switch self {
-        case .postLogin:
-            return .post
+        case .authorize():
+            return .get
         }
     }
     
     var path: String {
         switch self {
-        case .postLogin:
-            return "/login"
+        case .authorize():
+            return "/oauth/authorize"
         }
     }
     
     var parameters: Parameters? {
         switch self {
-//        case .postLogin(let email, let password):
-//            if password != nil {
-//                return [K.AuthParameterKey.email: email, K.AuthParameterKey.password: password!]
-//            } else {
-//                return [K.AuthParameterKey.email: email, K.AuthParameterKey.passwordHash: passwordHash!]
-//            }
+        
         default:
             return nil
         }
     }
     
-    var pathWithQuery: (path: String, parameters: Parameters)? {
+    var query: Parameters? {
         switch self {
-
+        case .authorize():
+            return [K.AuthorizeAppParameters.Key.responseType: K.AuthorizeAppParameters.Value.responseType,
+                    K.AuthorizeAppParameters.Key.clientId: TrankClient.id.rawValue,
+                    K.AuthorizeAppParameters.Key.redirectURI: K.AuthorizeAppParameters.Value.redirectURI]
         default:
             return nil
         }
@@ -69,22 +68,35 @@ enum TraktEndPoint: APIConfiguration {
         }
     }
     
+    var tokenRequired: Bool {
+        switch self {
+            
+        default:
+            return false
+        }
+    }
+    
     // MARK: - URLRequestConvertible
     func asURLRequest() throws -> URLRequest {
-        let url = try ServerHelper.shared.getTraktURL().asURL()
-        //if (pathWithQuery != nil) {
-            //url.appendQueryParameters(pathWithQuery!.parameters as! [String : String])
-        //}
-        
+        var url = try ServerHelper.shared.getTraktURL().asURL()
+
+        if (query != nil) {
+            url.appendQueryParameters(query as! [String : String])
+        }
+
         var urlRequest = URLRequest(url: url.appendingPathComponent(path))
-        
+
         // HTTP Method
         urlRequest.httpMethod = method.rawValue
         
         // Common Headers
-        urlRequest.setValue(ContentType.json.rawValue, forHTTPHeaderField: HTTPHeaderField.acceptType.rawValue)
         urlRequest.setValue(ContentType.json.rawValue, forHTTPHeaderField: HTTPHeaderField.contentType.rawValue)
-        urlRequest.setValue(Defaults[DefaultsKeys.sessionToken], forHTTPHeaderField: HTTPHeaderField.acceptToken.rawValue)
+        urlRequest.setValue(TrankApi.key.rawValue, forHTTPHeaderField: HTTPHeaderField.traktApiKey.rawValue)
+        urlRequest.setValue(TrankApi.version.rawValue, forHTTPHeaderField: HTTPHeaderField.traktApiVersion.rawValue)
+        
+        if tokenRequired {
+            urlRequest.setValue(Defaults[DefaultsKeys.accessToken], forHTTPHeaderField: HTTPHeaderField.authorization.rawValue)
+        }
         
         // Parameters
         if let parameters = parameters {
@@ -103,4 +115,19 @@ enum TraktEndPoint: APIConfiguration {
     }
     
 
+    func asURL() -> URL? {
+        
+        do {
+            var url = try ServerHelper.shared.getTraktURL().asURL()
+            
+            if (query != nil) {
+                url.appendQueryParameters(query as! [String : String])
+            }
+            
+            return url.appendingPathComponent(path)
+        } catch (let _) {
+            return nil
+        }
+
+    }
 }

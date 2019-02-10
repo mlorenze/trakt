@@ -54,4 +54,12 @@ class ServerHelper {
         }
     }
 
+    func getAuthURL() -> String {
+        switch self.environment {
+        case .Stage:
+            return K.StageServer.authURL
+        case .Production:
+            return K.ProductionServer.authURL
+        }
+    }
 }

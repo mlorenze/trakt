@@ -9,18 +9,17 @@
 import CodableAlamofire
 import Alamofire
 
-class OneClient {
+class TraktClient {
     
     @discardableResult
     private func performRequest<T:Decodable>(route: TraktEndPoint, decoder: JSONDecoder = JSONDecoder(), completion:@escaping (DataResponse<T>)->Void) -> DataRequest {
-
+        decoder.dateDecodingStrategy = .formatted(DateFormatter.iso8601)
+        
         return Alamofire.request(route)
             .responseDecodableObject (decoder: decoder){ (response: DataResponse<T>) in
                 completion(response)
         }
     }
 
-    func postLogin(email: String, password: String, completion: @escaping (DataResponse<LoginResponse>) -> Void) {
-        performRequest(route: TraktEndPoint.postLogin(email: email, password: password), completion: completion)
-    }
+    
 }
