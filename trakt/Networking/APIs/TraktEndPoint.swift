@@ -15,11 +15,14 @@ import SwifterSwift
 enum TraktEndPoint: APIConfiguration {
     
     case authorize()
+    case getToken(tokenBody: TokenBody)
     
     var method: HTTPMethod {
         switch self {
-        case .authorize():
+        case .authorize:
             return .get
+        case .getToken:
+            return .post
         }
     }
     
@@ -27,6 +30,8 @@ enum TraktEndPoint: APIConfiguration {
         switch self {
         case .authorize():
             return "/oauth/authorize"
+        case .getToken(_):
+            return "/oauth/token"
         }
     }
     
@@ -50,10 +55,10 @@ enum TraktEndPoint: APIConfiguration {
     }
     
     var body: Data? {
-//        let encoder = JSONEncoder()
+        let encoder = JSONEncoder()
         switch self {
-//        case .postSignUp(let signUpBody):
-//            return try! encoder.encode(signUpBody)
+        case .getToken(let tokenBody):
+            return try! encoder.encode(tokenBody)
         default:
             return nil
         }
@@ -125,7 +130,7 @@ enum TraktEndPoint: APIConfiguration {
             }
             
             return url.appendingPathComponent(path)
-        } catch (let _) {
+        } catch ( _) {
             return nil
         }
 

@@ -28,11 +28,13 @@ struct K {
             static let clientId = "client_id"
             static let redirectURI = "redirect_uri"
             static let state = "state"
+            static let grantType = "grant_type"
         }
 
         struct Value {
             static let responseType = "code"
-            static let redirectURI = "https://trakt.tv"
+            static let redirectURI = "com.belatrix.trakt://authorization"
+            static let grantType = "authorization_code"
         }
     }
     
@@ -40,7 +42,7 @@ struct K {
 
 struct ServerConfig {
     // Set environment (STAGE or PRODUCTION)
-    static let environment: Environment = Environment.Stage
+    static let environment: Environment = Environment.Production
     // Turn on or off drop down view from login to allow change of environment (in DEV or STAGE only)
     static let changeEnvironmentEnabled: Bool = false
 }

@@ -19,11 +19,15 @@ class TraktAPIManager {
     
     static let sharedInstance = TraktAPIManager()
     
+    var token: Token?
 
-    var OAuthTokenCompletionHandler:((NSError?) -> Void)?
+    var OAuthTokenCompletionHandler:((Error?) -> Void)?
     
     func hasOAuthToken() -> Bool {
-
+        if let accessToken = self.getOAuthToken()
+        {
+            return !accessToken.isEmpty
+        }
         return false
     }
     
@@ -33,5 +37,38 @@ class TraktAPIManager {
                 print(result)
             }
         }
+    }
+    
+    func processOAuthStep1Response(url: URL) {
+       
+        let components = NSURLComponents(url: url, resolvingAgainstBaseURL: false)
+        var code:String?
+        if let queryItems = components?.queryItems {
+            for queryItem in queryItems {
+                if (queryItem.name.lowercased() == "code") {
+                    code = queryItem.value
+                    break
+                }
+            }
+        }
+        
+        if let receivedCode = code {
+            traktInteractor.getToken(code: receivedCode) { (token, error) in
+                if let anError = error {
+                    print(anError)
+                    if let completionHandler = self.OAuthTokenCompletionHandler {
+                        let noOAuthError = NSError(domain: "AlamofireErrorDomain", code: -1, userInfo: [NSLocalizedDescriptionKey: "Could not obtain an OAuth token", NSLocalizedRecoverySuggestionErrorKey: "Please retry your request"])
+                        completionHandler(noOAuthError as Error)
+                    }
+                    return
+                }
+                
+                self.token = token
+            }
+        }
+    }
+    
+    func getOAuthToken() -> String? {
+        return token?.accessToken
     }
 }

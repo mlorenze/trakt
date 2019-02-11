@@ -20,7 +20,7 @@
 		E1A64116220F4D3C00C492C5 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A64115220F4D3C00C492C5 /* Constants.swift */; };
 		E1A6411B220F51A600C492C5 /* DefaultsKeys+Trakt.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A6411A220F51A600C492C5 /* DefaultsKeys+Trakt.swift */; };
 		E1A6411E220F54A600C492C5 /* TokenResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A6411D220F54A600C492C5 /* TokenResponse.swift */; };
-		E1A64121220F550B00C492C5 /* LoginBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A64120220F550B00C492C5 /* LoginBody.swift */; };
+		E1A64121220F550B00C492C5 /* TokenBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A64120220F550B00C492C5 /* TokenBody.swift */; };
 		E1A64123220F6B5300C492C5 /* DateFormatter+Trakt.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A64122220F6B5300C492C5 /* DateFormatter+Trakt.swift */; };
 		E1A64126220F6C2700C492C5 /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A64125220F6C2700C492C5 /* Movie.swift */; };
 		E1A64128220F6C3200C492C5 /* Show.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A64127220F6C3200C492C5 /* Show.swift */; };
@@ -31,6 +31,7 @@
 		E1A64133220F737700C492C5 /* Interactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A64132220F737700C492C5 /* Interactor.swift */; };
 		E1A64135220F7FC700C492C5 /* EmptyResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A64134220F7FC600C492C5 /* EmptyResponse.swift */; };
 		E1A64137220F92B200C492C5 /* TraktAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A64136220F92B200C492C5 /* TraktAPIManager.swift */; };
+		E1AC29AF2210A01A002B9445 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1AC29AE2210A01A002B9445 /* Token.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,7 +51,7 @@
 		E1A64115220F4D3C00C492C5 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		E1A6411A220F51A600C492C5 /* DefaultsKeys+Trakt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DefaultsKeys+Trakt.swift"; sourceTree = "<group>"; };
 		E1A6411D220F54A600C492C5 /* TokenResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenResponse.swift; sourceTree = "<group>"; };
-		E1A64120220F550B00C492C5 /* LoginBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginBody.swift; sourceTree = "<group>"; };
+		E1A64120220F550B00C492C5 /* TokenBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenBody.swift; sourceTree = "<group>"; };
 		E1A64122220F6B5300C492C5 /* DateFormatter+Trakt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+Trakt.swift"; sourceTree = "<group>"; };
 		E1A64125220F6C2700C492C5 /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
 		E1A64127220F6C3200C492C5 /* Show.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Show.swift; sourceTree = "<group>"; };
@@ -61,6 +62,7 @@
 		E1A64132220F737700C492C5 /* Interactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interactor.swift; sourceTree = "<group>"; };
 		E1A64134220F7FC600C492C5 /* EmptyResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyResponse.swift; sourceTree = "<group>"; };
 		E1A64136220F92B200C492C5 /* TraktAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraktAPIManager.swift; sourceTree = "<group>"; };
+		E1AC29AE2210A01A002B9445 /* Token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
 		E988233235C7C705B1DA6211 /* Pods-trakt.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-trakt.release.xcconfig"; path = "Pods/Target Support Files/Pods-trakt/Pods-trakt.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -180,7 +182,7 @@
 		E1A6411F220F54E800C492C5 /* Bodies */ = {
 			isa = PBXGroup;
 			children = (
-				E1A64120220F550B00C492C5 /* LoginBody.swift */,
+				E1A64120220F550B00C492C5 /* TokenBody.swift */,
 			);
 			path = Bodies;
 			sourceTree = "<group>";
@@ -193,6 +195,7 @@
 				E1A64129220F6C3E00C492C5 /* Season.swift */,
 				E1A6412B220F6C4800C492C5 /* Episode.swift */,
 				E1A6412D220F6C5400C492C5 /* Person.swift */,
+				E1AC29AE2210A01A002B9445 /* Token.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -351,11 +354,12 @@
 				E1A64128220F6C3200C492C5 /* Show.swift in Sources */,
 				E1A64133220F737700C492C5 /* Interactor.swift in Sources */,
 				E1A640F9220F47D300C492C5 /* AppDelegate.swift in Sources */,
+				E1AC29AF2210A01A002B9445 /* Token.swift in Sources */,
 				E1A64137220F92B200C492C5 /* TraktAPIManager.swift in Sources */,
 				E1A6412A220F6C3E00C492C5 /* Season.swift in Sources */,
 				E1A6412C220F6C4800C492C5 /* Episode.swift in Sources */,
 				E1A6412E220F6C5400C492C5 /* Person.swift in Sources */,
-				E1A64121220F550B00C492C5 /* LoginBody.swift in Sources */,
+				E1A64121220F550B00C492C5 /* TokenBody.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -20,6 +20,8 @@ class TraktClient {
                 completion(response)
         }
     }
-
     
+    func getToken(tokenBody: TokenBody, completion: @escaping(DataResponse<TokenResponse>) -> Void) {
+        performRequest(route: TraktEndPoint.getToken(tokenBody: tokenBody), completion: completion)
+    }
 }
