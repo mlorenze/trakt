@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		C75E0A26C7D5E1C8DACDB465 /* Pods_trakt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EE7A2956962F127E23863A4 /* Pods_trakt.framework */; };
+		E114FC7F221B97FC002CEDA7 /* RevokeTokenBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = E114FC7E221B97FC002CEDA7 /* RevokeTokenBody.swift */; };
 		E1A640F9220F47D300C492C5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A640F8220F47D300C492C5 /* AppDelegate.swift */; };
 		E1A640FB220F47D300C492C5 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A640FA220F47D300C492C5 /* HomeViewController.swift */; };
 		E1A640FE220F47D300C492C5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E1A640FC220F47D300C492C5 /* Main.storyboard */; };
@@ -37,6 +38,7 @@
 /* Begin PBXFileReference section */
 		2EE7A2956962F127E23863A4 /* Pods_trakt.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_trakt.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB2E8B4608B072E33805C50C /* Pods-trakt.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-trakt.debug.xcconfig"; path = "Pods/Target Support Files/Pods-trakt/Pods-trakt.debug.xcconfig"; sourceTree = "<group>"; };
+		E114FC7E221B97FC002CEDA7 /* RevokeTokenBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RevokeTokenBody.swift; sourceTree = "<group>"; };
 		E1A640F5220F47D300C492C5 /* trakt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = trakt.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1A640F8220F47D300C492C5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E1A640FA220F47D300C492C5 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -183,6 +185,7 @@
 			isa = PBXGroup;
 			children = (
 				E1A64120220F550B00C492C5 /* TokenBody.swift */,
+				E114FC7E221B97FC002CEDA7 /* RevokeTokenBody.swift */,
 			);
 			path = Bodies;
 			sourceTree = "<group>";
@@ -349,6 +352,7 @@
 				E1A64111220F49ED00C492C5 /* APIConfiguration.swift in Sources */,
 				E1A6411B220F51A600C492C5 /* DefaultsKeys+Trakt.swift in Sources */,
 				E1A64123220F6B5300C492C5 /* DateFormatter+Trakt.swift in Sources */,
+				E114FC7F221B97FC002CEDA7 /* RevokeTokenBody.swift in Sources */,
 				E1A64116220F4D3C00C492C5 /* Constants.swift in Sources */,
 				E1A640FB220F47D300C492C5 /* HomeViewController.swift in Sources */,
 				E1A64128220F6C3200C492C5 /* Show.swift in Sources */,

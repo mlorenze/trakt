@@ -16,12 +16,15 @@ enum TraktEndPoint: APIConfiguration {
     
     case authorize()
     case getToken(tokenBody: TokenBody)
+    case revokeToken(revokeTokenBody: RevokeTokenBody)
     
     var method: HTTPMethod {
         switch self {
         case .authorize:
             return .get
         case .getToken:
+            return .post
+        case .revokeToken:
             return .post
         }
     }
@@ -32,6 +35,8 @@ enum TraktEndPoint: APIConfiguration {
             return "/oauth/authorize"
         case .getToken(_):
             return "/oauth/token"
+        case .revokeToken(_):
+            return "/oauth/revoke"
         }
     }
     
@@ -59,6 +64,8 @@ enum TraktEndPoint: APIConfiguration {
         switch self {
         case .getToken(let tokenBody):
             return try! encoder.encode(tokenBody)
+        case .revokeToken(let revokeTokenBody):
+            return try! encoder.encode(revokeTokenBody)
         default:
             return nil
         }

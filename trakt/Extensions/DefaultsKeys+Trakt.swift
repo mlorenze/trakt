@@ -12,5 +12,4 @@ import SwiftyUserDefaults
 extension DefaultsKeys {
     
     static let accessToken = DefaultsKey<String?>("access_token")
-    
 }

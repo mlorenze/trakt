@@ -24,4 +24,8 @@ class TraktClient {
     func getToken(tokenBody: TokenBody, completion: @escaping(DataResponse<TokenResponse>) -> Void) {
         performRequest(route: TraktEndPoint.getToken(tokenBody: tokenBody), completion: completion)
     }
+    
+    func revokeToken(revokeTokenBody: RevokeTokenBody, completion: @escaping(DataResponse<EmptyResponse>) -> Void) {
+        performRequest(route: TraktEndPoint.revokeToken(revokeTokenBody: revokeTokenBody), completion: completion)
+    }
 }

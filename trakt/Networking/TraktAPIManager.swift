@@ -8,6 +8,7 @@
 
 import Foundation
 import Alamofire
+import SwiftyUserDefaults
 
 class TraktAPIManager {
     
@@ -24,8 +25,7 @@ class TraktAPIManager {
     var OAuthTokenCompletionHandler:((Error?) -> Void)?
     
     func hasOAuthToken() -> Bool {
-        if let accessToken = self.getOAuthToken()
-        {
+        if let accessToken = self.getOAuthToken() {
             return !accessToken.isEmpty
         }
         return false
@@ -33,8 +33,11 @@ class TraktAPIManager {
     
     func startOAuth2Login() {
         if let authURL = TraktEndPoint.authorize().asURL() {
+            
+            Defaults.set(true, forKey: K.Token.loadingOAuthToken)
+            
             UIApplication.shared.open(authURL, options: [:]) { (result) in
-                print(result)
+                // Something to add!!! Message
             }
         }
     }
@@ -57,18 +60,36 @@ class TraktAPIManager {
                 if let anError = error {
                     print(anError)
                     if let completionHandler = self.OAuthTokenCompletionHandler {
-                        let noOAuthError = NSError(domain: "AlamofireErrorDomain", code: -1, userInfo: [NSLocalizedDescriptionKey: "Could not obtain an OAuth token", NSLocalizedRecoverySuggestionErrorKey: "Please retry your request"])
-                        completionHandler(noOAuthError as Error)
+                        let nOAuthError = NSError(domain: "AlamofireErrorDomain", code: -1, userInfo: [NSLocalizedDescriptionKey: "Could not obtain an OAuth token", NSLocalizedRecoverySuggestionErrorKey: "Please retry your request"])
+                        completionHandler(nOAuthError)
                     }
+                    Defaults.set(false, forKey: K.Token.loadingOAuthToken)
                     return
                 }
                 
                 self.token = token
+                Defaults[DefaultsKeys.accessToken] = token?.accessToken
+                
+                Defaults.set(false, forKey: K.Token.loadingOAuthToken)
+            
+                if self.hasOAuthToken() {
+                    if let completionHandler = self.OAuthTokenCompletionHandler {
+                        completionHandler(nil)
+                    }
+                } else {
+                    if let completionHandler = self.OAuthTokenCompletionHandler {
+                        let noOAuthError = NSError(domain: "AlamofireErrorDomain", code: -1, userInfo: [NSLocalizedDescriptionKey: "Could not obtain an OAuth token", NSLocalizedRecoverySuggestionErrorKey: "Please retry your request"])
+                        completionHandler(noOAuthError)
+                    }
+                }
             }
+        }else{
+            // no code in URL that we launched with
+            Defaults.set(false, forKey: K.Token.loadingOAuthToken)
         }
     }
     
     func getOAuthToken() -> String? {
-        return token?.accessToken
+        return Defaults[DefaultsKeys.accessToken]
     }
 }

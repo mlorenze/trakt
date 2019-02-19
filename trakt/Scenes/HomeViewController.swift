@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftyUserDefaults
 
 class HomeViewController: UIViewController {
 
@@ -16,36 +17,41 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         
         self.title = "Home"
-        
-        self.loadInitialData()
     }
     
-    func loadInitialData() {
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        if (!Defaults.bool(forKey: K.Token.loadingOAuthToken)) {
+            loadInitialData()
+        }
+    }
+
+    private func loadInitialData() {
+        TraktAPIManager.sharedInstance.OAuthTokenCompletionHandler = {
+            (error) -> Void in
+            print("handlin stuff")
+            if error != nil {
+                print(error as Any)
+                // TODO: handle error
+                // Something went wrong, try again
+                TraktAPIManager.sharedInstance.startOAuth2Login()
+            } else {
+                self.fetchItems()
+            }
+        }
+        
         if (!TraktAPIManager.sharedInstance.hasOAuthToken()) {
             TraktAPIManager.sharedInstance.startOAuth2Login()
 
-        }
-        else {
-            // fetchMyRepos()
+        }  else {
+            self.fetchItems()
         }
     }
     
-//    func loadInitialData() {
-//
-//        TraktAPIManager.sharedInstance.OAuthTokenCompletionHandler = {
-//            (error) -> Void in
-//            print("handlin stuff")
-//            if error != nil {
-//                print(error as Any)
-//                // TODO: handle error
-//                // Something went wrong, try again
-//                TraktAPIManager.sharedInstance.startOAuth2Login()
-//            }
-//            else {
-//                //self.fetchMyRepos()
-//            }
-//        }
-//    }
+    private func fetchItems() {
+        print("Token: " + (TraktAPIManager.sharedInstance.getOAuthToken() ?? "No Token!!!"))
+    }
     
 }
 

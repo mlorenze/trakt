@@ -38,6 +38,10 @@ struct K {
         }
     }
     
+    struct Token {
+        static let loadingOAuthToken = "loadingOAuthToken"
+    }
+
 }
 
 struct ServerConfig {
