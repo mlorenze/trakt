@@ -13,9 +13,9 @@ class Movie: NSObject {
     let year: Int
     let ids: [String : AnyObject]
     
-    init(title: String, year: Int, ids: [String : AnyObject]) {
+    init(title: String, year: Int, idsResponse: IdsResponse) {
         self.title = title
         self.year = year
-        self.ids = ids
+        self.ids = [String:AnyObject]()
     }
 }

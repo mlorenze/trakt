@@ -17,14 +17,15 @@ enum TraktEndPoint: APIConfiguration {
     case authorize()
     case getToken(tokenBody: TokenBody)
     case revokeToken(revokeTokenBody: RevokeTokenBody)
+    case getPopularMovies()
     
     var method: HTTPMethod {
         switch self {
-        case .authorize:
+        case .authorize,
+             .getPopularMovies:
             return .get
-        case .getToken:
-            return .post
-        case .revokeToken:
+        case .getToken,
+             .revokeToken:
             return .post
         }
     }
@@ -37,6 +38,8 @@ enum TraktEndPoint: APIConfiguration {
             return "/oauth/token"
         case .revokeToken(_):
             return "/oauth/revoke"
+        case .getPopularMovies():
+            return "/movies/popular"
         }
     }
     
@@ -82,7 +85,7 @@ enum TraktEndPoint: APIConfiguration {
     
     var tokenRequired: Bool {
         switch self {
-            
+      
         default:
             return false
         }

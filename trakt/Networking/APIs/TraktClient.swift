@@ -28,4 +28,8 @@ class TraktClient {
     func revokeToken(revokeTokenBody: RevokeTokenBody, completion: @escaping(DataResponse<EmptyResponse>) -> Void) {
         performRequest(route: TraktEndPoint.revokeToken(revokeTokenBody: revokeTokenBody), completion: completion)
     }
+    
+    func getPopularMovies(completion: @escaping(DataResponse<[MovieResponse]>) -> Void) {
+        performRequest(route: TraktEndPoint.getPopularMovies(), completion: completion)
+    }
 }

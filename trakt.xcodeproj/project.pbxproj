@@ -9,6 +9,13 @@
 /* Begin PBXBuildFile section */
 		C75E0A26C7D5E1C8DACDB465 /* Pods_trakt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EE7A2956962F127E23863A4 /* Pods_trakt.framework */; };
 		E114FC7F221B97FC002CEDA7 /* RevokeTokenBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = E114FC7E221B97FC002CEDA7 /* RevokeTokenBody.swift */; };
+		E114FC81221B9F58002CEDA7 /* MovieResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E114FC80221B9F58002CEDA7 /* MovieResponse.swift */; };
+		E114FC85221BA26D002CEDA7 /* IdsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E114FC84221BA26D002CEDA7 /* IdsResponse.swift */; };
+		E114FC8A221BAE7F002CEDA7 /* GenericTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E114FC88221BAE7F002CEDA7 /* GenericTableViewCell.swift */; };
+		E114FC8B221BAE7F002CEDA7 /* GenericTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E114FC89221BAE7F002CEDA7 /* GenericTableViewCell.xib */; };
+		E114FC8D221BB200002CEDA7 /* ShadowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E114FC8C221BB200002CEDA7 /* ShadowView.swift */; };
+		E114FC90221BB3B5002CEDA7 /* MovieCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E114FC8F221BB3B5002CEDA7 /* MovieCardView.swift */; };
+		E114FC92221BB566002CEDA7 /* MovieCardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E114FC91221BB566002CEDA7 /* MovieCardView.xib */; };
 		E1A640F9220F47D300C492C5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A640F8220F47D300C492C5 /* AppDelegate.swift */; };
 		E1A640FB220F47D300C492C5 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A640FA220F47D300C492C5 /* HomeViewController.swift */; };
 		E1A640FE220F47D300C492C5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E1A640FC220F47D300C492C5 /* Main.storyboard */; };
@@ -39,6 +46,13 @@
 		2EE7A2956962F127E23863A4 /* Pods_trakt.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_trakt.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB2E8B4608B072E33805C50C /* Pods-trakt.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-trakt.debug.xcconfig"; path = "Pods/Target Support Files/Pods-trakt/Pods-trakt.debug.xcconfig"; sourceTree = "<group>"; };
 		E114FC7E221B97FC002CEDA7 /* RevokeTokenBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RevokeTokenBody.swift; sourceTree = "<group>"; };
+		E114FC80221B9F58002CEDA7 /* MovieResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieResponse.swift; sourceTree = "<group>"; };
+		E114FC84221BA26D002CEDA7 /* IdsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdsResponse.swift; sourceTree = "<group>"; };
+		E114FC88221BAE7F002CEDA7 /* GenericTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericTableViewCell.swift; sourceTree = "<group>"; };
+		E114FC89221BAE7F002CEDA7 /* GenericTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GenericTableViewCell.xib; sourceTree = "<group>"; };
+		E114FC8C221BB200002CEDA7 /* ShadowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShadowView.swift; sourceTree = "<group>"; };
+		E114FC8F221BB3B5002CEDA7 /* MovieCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCardView.swift; sourceTree = "<group>"; };
+		E114FC91221BB566002CEDA7 /* MovieCardView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MovieCardView.xib; sourceTree = "<group>"; };
 		E1A640F5220F47D300C492C5 /* trakt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = trakt.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1A640F8220F47D300C492C5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E1A640FA220F47D300C492C5 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -97,6 +111,35 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		E114FC86221BAE51002CEDA7 /* Interface */ = {
+			isa = PBXGroup;
+			children = (
+				E114FC8E221BB39F002CEDA7 /* Views */,
+				E114FC87221BAE66002CEDA7 /* Cells */,
+				E1A640FC220F47D300C492C5 /* Main.storyboard */,
+				E114FC8C221BB200002CEDA7 /* ShadowView.swift */,
+			);
+			path = Interface;
+			sourceTree = "<group>";
+		};
+		E114FC87221BAE66002CEDA7 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				E114FC88221BAE7F002CEDA7 /* GenericTableViewCell.swift */,
+				E114FC89221BAE7F002CEDA7 /* GenericTableViewCell.xib */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		E114FC8E221BB39F002CEDA7 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				E114FC8F221BB3B5002CEDA7 /* MovieCardView.swift */,
+				E114FC91221BB566002CEDA7 /* MovieCardView.xib */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		E1A640EC220F47D300C492C5 = {
 			isa = PBXGroup;
 			children = (
@@ -118,13 +161,13 @@
 		E1A640F7220F47D300C492C5 /* trakt */ = {
 			isa = PBXGroup;
 			children = (
+				E114FC86221BAE51002CEDA7 /* Interface */,
 				E1A6412F220F71F200C492C5 /* Scenes */,
 				E1A64124220F6BE600C492C5 /* Model */,
 				E1A64119220F519200C492C5 /* Extensions */,
 				E1A64114220F4D2A00C492C5 /* Constants */,
 				E1A6410A220F481000C492C5 /* Networking */,
 				E1A640F8220F47D300C492C5 /* AppDelegate.swift */,
-				E1A640FC220F47D300C492C5 /* Main.storyboard */,
 				E1A640FF220F47D400C492C5 /* Assets.xcassets */,
 				E1A64101220F47D400C492C5 /* LaunchScreen.storyboard */,
 				E1A64104220F47D400C492C5 /* Info.plist */,
@@ -177,6 +220,8 @@
 			children = (
 				E1A6411D220F54A600C492C5 /* TokenResponse.swift */,
 				E1A64134220F7FC600C492C5 /* EmptyResponse.swift */,
+				E114FC80221B9F58002CEDA7 /* MovieResponse.swift */,
+				E114FC84221BA26D002CEDA7 /* IdsResponse.swift */,
 			);
 			path = Responses;
 			sourceTree = "<group>";
@@ -274,6 +319,8 @@
 			files = (
 				E1A64103220F47D400C492C5 /* LaunchScreen.storyboard in Resources */,
 				E1A64100220F47D400C492C5 /* Assets.xcassets in Resources */,
+				E114FC92221BB566002CEDA7 /* MovieCardView.xib in Resources */,
+				E114FC8B221BAE7F002CEDA7 /* GenericTableViewCell.xib in Resources */,
 				E1A640FE220F47D300C492C5 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -347,19 +394,24 @@
 				E1A6410F220F485000C492C5 /* TraktClient.swift in Sources */,
 				E1A64126220F6C2700C492C5 /* Movie.swift in Sources */,
 				E1A64131220F720C00C492C5 /* SearchViewController.swift in Sources */,
+				E114FC8A221BAE7F002CEDA7 /* GenericTableViewCell.swift in Sources */,
 				E1A6411E220F54A600C492C5 /* TokenResponse.swift in Sources */,
 				E1A64113220F4CC000C492C5 /* ServerHelper.swift in Sources */,
 				E1A64111220F49ED00C492C5 /* APIConfiguration.swift in Sources */,
 				E1A6411B220F51A600C492C5 /* DefaultsKeys+Trakt.swift in Sources */,
+				E114FC8D221BB200002CEDA7 /* ShadowView.swift in Sources */,
 				E1A64123220F6B5300C492C5 /* DateFormatter+Trakt.swift in Sources */,
 				E114FC7F221B97FC002CEDA7 /* RevokeTokenBody.swift in Sources */,
 				E1A64116220F4D3C00C492C5 /* Constants.swift in Sources */,
+				E114FC81221B9F58002CEDA7 /* MovieResponse.swift in Sources */,
 				E1A640FB220F47D300C492C5 /* HomeViewController.swift in Sources */,
 				E1A64128220F6C3200C492C5 /* Show.swift in Sources */,
+				E114FC85221BA26D002CEDA7 /* IdsResponse.swift in Sources */,
 				E1A64133220F737700C492C5 /* Interactor.swift in Sources */,
 				E1A640F9220F47D300C492C5 /* AppDelegate.swift in Sources */,
 				E1AC29AF2210A01A002B9445 /* Token.swift in Sources */,
 				E1A64137220F92B200C492C5 /* TraktAPIManager.swift in Sources */,
+				E114FC90221BB3B5002CEDA7 /* MovieCardView.swift in Sources */,
 				E1A6412A220F6C3E00C492C5 /* Season.swift in Sources */,
 				E1A6412C220F6C4800C492C5 /* Episode.swift in Sources */,
 				E1A6412E220F6C5400C492C5 /* Person.swift in Sources */,
