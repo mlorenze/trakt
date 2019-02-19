@@ -14,7 +14,7 @@ class TraktClient {
     @discardableResult
     private func performRequest<T:Decodable>(route: TraktEndPoint, decoder: JSONDecoder = JSONDecoder(), completion:@escaping (DataResponse<T>)->Void) -> DataRequest {
         decoder.dateDecodingStrategy = .formatted(DateFormatter.iso8601)
-        
+
         return Alamofire.request(route)
             .responseDecodableObject (decoder: decoder){ (response: DataResponse<T>) in
                 completion(response)

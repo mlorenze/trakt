@@ -92,4 +92,12 @@ class TraktAPIManager {
     func getOAuthToken() -> String? {
         return Defaults[DefaultsKeys.accessToken]
     }
+    
+    func revokeToken() {
+        self.traktInteractor.revokeToken(token: TraktAPIManager.sharedInstance.getOAuthToken()!) { (error) in
+            Defaults.remove(DefaultsKeys.accessToken)
+            
+            print(error)
+        }
+    }
 }

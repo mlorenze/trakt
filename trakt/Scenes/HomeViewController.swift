@@ -8,6 +8,7 @@
 
 import UIKit
 import SwiftyUserDefaults
+import BoltsSwift
 
 class HomeViewController: UIViewController {
 
@@ -61,18 +62,35 @@ class HomeViewController: UIViewController {
         print("Token: " + (TraktAPIManager.sharedInstance.getOAuthToken() ?? "No Token!!!"))
         
         self.traktInteractor.getPopularMovies { (movies, error) in
-            
+
             if error != nil {
                 return
             }
-            
             self.movies = movies
-            
-            self.tableView.reloadData()
+
+            var tasks:[Task<TaskResult>] = []
+
+            tasks.append(
+                self.getTask()
+            )
+
+            Task.whenAll(tasks).continueWith { (_) -> Any? in
+
+                self.tableView.reloadData()
+                return nil
+            }
+
         }
     }
     
+    func getTask() -> Task<TaskResult>  {
+        let taskCompletionSource = TaskCompletionSource<TaskResult>()
+        taskCompletionSource.set(result: TaskResult(result: MoviesDataStateResult.Success))
+        return taskCompletionSource.task
+    }
+    
 }
+
 
 //MARK: - Table Delegates
 extension HomeViewController : UITableViewDelegate, UITableViewDataSource {
@@ -87,7 +105,7 @@ extension HomeViewController : UITableViewDelegate, UITableViewDataSource {
         
         let movie = self.movies[indexPath.row]
         
-        let movieCardView = MovieCardView.create(title: movie.title, year: movie.year)
+        let movieCardView = MovieCardView.create(title: movie.title, year: movie.year, overview: movie.overview)
 
         cell.addCardView(cardView: movieCardView)
         

@@ -16,6 +16,7 @@
 		E114FC8D221BB200002CEDA7 /* ShadowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E114FC8C221BB200002CEDA7 /* ShadowView.swift */; };
 		E114FC90221BB3B5002CEDA7 /* MovieCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E114FC8F221BB3B5002CEDA7 /* MovieCardView.swift */; };
 		E114FC92221BB566002CEDA7 /* MovieCardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E114FC91221BB566002CEDA7 /* MovieCardView.xib */; };
+		E12CE0CB221C7299005FF1A8 /* MoviesDataStatusResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12CE0CA221C7299005FF1A8 /* MoviesDataStatusResult.swift */; };
 		E1A640F9220F47D300C492C5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A640F8220F47D300C492C5 /* AppDelegate.swift */; };
 		E1A640FB220F47D300C492C5 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A640FA220F47D300C492C5 /* HomeViewController.swift */; };
 		E1A640FE220F47D300C492C5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E1A640FC220F47D300C492C5 /* Main.storyboard */; };
@@ -53,6 +54,7 @@
 		E114FC8C221BB200002CEDA7 /* ShadowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShadowView.swift; sourceTree = "<group>"; };
 		E114FC8F221BB3B5002CEDA7 /* MovieCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCardView.swift; sourceTree = "<group>"; };
 		E114FC91221BB566002CEDA7 /* MovieCardView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MovieCardView.xib; sourceTree = "<group>"; };
+		E12CE0CA221C7299005FF1A8 /* MoviesDataStatusResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesDataStatusResult.swift; sourceTree = "<group>"; };
 		E1A640F5220F47D300C492C5 /* trakt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = trakt.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1A640F8220F47D300C492C5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E1A640FA220F47D300C492C5 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -140,6 +142,14 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		E12CE0C9221C7281005FF1A8 /* Status */ = {
+			isa = PBXGroup;
+			children = (
+				E12CE0CA221C7299005FF1A8 /* MoviesDataStatusResult.swift */,
+			);
+			path = Status;
+			sourceTree = "<group>";
+		};
 		E1A640EC220F47D300C492C5 = {
 			isa = PBXGroup;
 			children = (
@@ -178,6 +188,7 @@
 		E1A6410A220F481000C492C5 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
+				E12CE0C9221C7281005FF1A8 /* Status */,
 				E1A6410B220F481900C492C5 /* APIs */,
 				E1A6411F220F54E800C492C5 /* Bodies */,
 				E1A6411C220F547A00C492C5 /* Responses */,
@@ -339,6 +350,7 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-trakt/Pods-trakt-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/AlamofireNetworkActivityLogger/AlamofireNetworkActivityLogger.framework",
+				"${BUILT_PRODUCTS_DIR}/Bolts-Swift/BoltsSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/CodableAlamofire/CodableAlamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/SwifterSwift/SwifterSwift.framework",
@@ -350,6 +362,7 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireNetworkActivityLogger.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BoltsSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CodableAlamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwifterSwift.framework",
@@ -396,6 +409,7 @@
 				E1A64131220F720C00C492C5 /* SearchViewController.swift in Sources */,
 				E114FC8A221BAE7F002CEDA7 /* GenericTableViewCell.swift in Sources */,
 				E1A6411E220F54A600C492C5 /* TokenResponse.swift in Sources */,
+				E12CE0CB221C7299005FF1A8 /* MoviesDataStatusResult.swift in Sources */,
 				E1A64113220F4CC000C492C5 /* ServerHelper.swift in Sources */,
 				E1A64111220F49ED00C492C5 /* APIConfiguration.swift in Sources */,
 				E1A6411B220F51A600C492C5 /* DefaultsKeys+Trakt.swift in Sources */,

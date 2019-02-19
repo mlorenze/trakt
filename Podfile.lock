@@ -2,6 +2,7 @@ PODS:
   - Alamofire (4.8.1)
   - AlamofireNetworkActivityLogger (2.3.0):
     - Alamofire (~> 4.6)
+  - Bolts-Swift (1.4.0)
   - CodableAlamofire (1.1.0):
     - Alamofire (~> 4.0)
   - SVProgressHUD (2.2.5)
@@ -26,6 +27,7 @@ PODS:
 
 DEPENDENCIES:
   - AlamofireNetworkActivityLogger (~> 2.0)
+  - Bolts-Swift
   - CodableAlamofire
   - SVProgressHUD
   - SwifterSwift
@@ -35,6 +37,7 @@ SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Alamofire
     - AlamofireNetworkActivityLogger
+    - Bolts-Swift
     - CodableAlamofire
     - SVProgressHUD
     - SwifterSwift
@@ -43,11 +46,12 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   Alamofire: 16ce2c353fb72865124ddae8a57c5942388f4f11
   AlamofireNetworkActivityLogger: 6f3076652ab7fa6c819b59be08ea038d339e36d8
+  Bolts-Swift: 650d72e8017721b1a6bbe43d542c4578f8e5ba6f
   CodableAlamofire: e2d2edcec7cf413f7862c30c8fa98eded27a83f9
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
   SwifterSwift: 812ffec6f301922f5430e75be3f2939ea3a80024
   SwiftyUserDefaults: 3d273b1739b68ada3145dc754a70ec775bc5c8be
 
-PODFILE CHECKSUM: ff8e513dc529a08ca76660417b3df9fa6b7e03c7
+PODFILE CHECKSUM: f3f080e093ffaf08ee36f8b39dfbd5be7600d2c7
 
 COCOAPODS: 1.5.3

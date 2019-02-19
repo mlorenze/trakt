@@ -43,9 +43,18 @@ enum TraktEndPoint: APIConfiguration {
         }
     }
     
+    var pathWithQuery: (path: String, parameters: Parameters)? {
+        switch self {
+        case .getPopularMovies:
+            return ("/movies/popular",["extended": "full"])
+        default:
+            return nil
+        }
+    }
+    
     var parameters: Parameters? {
         switch self {
-        
+
         default:
             return nil
         }
@@ -85,7 +94,7 @@ enum TraktEndPoint: APIConfiguration {
     
     var tokenRequired: Bool {
         switch self {
-      
+
         default:
             return false
         }
@@ -95,6 +104,10 @@ enum TraktEndPoint: APIConfiguration {
     func asURLRequest() throws -> URLRequest {
         var url = try ServerHelper.shared.getTraktURL().asURL()
 
+        if (pathWithQuery != nil) {
+            url.appendQueryParameters(pathWithQuery!.parameters as! [String : String])
+        }
+        
         if (query != nil) {
             url.appendQueryParameters(query as! [String : String])
         }

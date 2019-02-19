@@ -17,7 +17,7 @@ class MovieCardView: UIView {
     @IBOutlet weak var pictureImageView: UIImageView!
     @IBOutlet weak var overviewTextView: UITextView!
 
-    static func create(title: String, year: Int) -> MovieCardView {
+    static func create(title: String, year: Int, overview: String) -> MovieCardView {
         
         let view = nib.instantiate(withOwner: nil, options: nil).first as! MovieCardView
         
@@ -26,6 +26,7 @@ class MovieCardView: UIView {
         
         view.titleLabel.text = title
         view.yearLabel.text = year.string
+        view.overviewTextView.text = overview
 
         return view
     }

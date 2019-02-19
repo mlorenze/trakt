@@ -12,6 +12,7 @@ import Alamofire
 protocol TraktInteractor {
     func getToken(code: String, completion:  @escaping (Token?, Error?) -> Void)
     func getToken(refreshToken: String, completion:  @escaping (Token?, Error?) -> Void)
+    func revokeToken(token: String, completion:  @escaping (Bool) -> Void) 
     func getPopularMovies(completion:  @escaping ([Movie]?, Error?) -> Void)
 }
 
@@ -61,6 +62,23 @@ class TraktInteractorImpl: TraktInteractor {
         }
     }
     
+    func revokeToken(token: String, completion:  @escaping (Bool) -> Void) {
+        
+        let revokeToken = RevokeTokenBody(token: token,
+                                          clientId: TrankClient.id.rawValue,
+                                          clientSecret: TrankClient.secret.rawValue)
+        
+        client.revokeToken(revokeTokenBody: revokeToken) { (response) in
+            switch response.result {
+            case .success( _):
+               completion(true)
+            case .failure(let error):
+                print(error)
+                completion(false)
+            }
+        }
+    }
+    
     func getPopularMovies(completion:  @escaping ([Movie]?, Error?) -> Void) {
         client.getPopularMovies { (response) in
             switch response.result {
@@ -68,9 +86,7 @@ class TraktInteractorImpl: TraktInteractor {
                 var movies: [Movie] = []
                 for movieResponse in moviesResponse {
                     
-                    movies.append(Movie(title: movieResponse.title!,
-                                        year: movieResponse.year!,
-                                        idsResponse: movieResponse.ids!))
+                    movies.append(Movie(movieResponse: movieResponse))
                 
                 }
                 completion(movies, nil)

@@ -11,6 +11,7 @@ target 'trakt' do
   pod 'SwiftyUserDefaults'
   pod 'SVProgressHUD'
   pod 'AlamofireNetworkActivityLogger', '~> 2.0'
+  pod 'Bolts-Swift'
 
   # pod 'IQKeyboardManagerSwift', '~> 6.1.1'
   
