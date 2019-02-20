@@ -12,11 +12,17 @@ import BoltsSwift
 
 class HomeViewController: UIViewController {
 
+    @IBOutlet weak var refreshButton: UIButton!
     @IBOutlet weak var tableView: UITableView!
     
     private let traktInteractor: TraktInteractor! = TraktInteractorImpl()
     
     private var movies: [Movie]!
+    
+    private var isFetching: Bool = false
+    private var lastPageFetched: Int = 1
+    
+    private var noTokenNeeded: Bool = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,12 +37,25 @@ class HomeViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
+        if noTokenNeeded {
+            loadInitialData()
+            return
+        }
+        
         if (!Defaults.bool(forKey: K.Token.loadingOAuthToken)) {
             loadInitialData()
         }
     }
 
     private func loadInitialData() {
+        
+        if noTokenNeeded {
+            self.fetchItems {
+                self.lastPageFetched += 1
+            }
+            return
+        }
+        
         TraktAPIManager.sharedInstance.OAuthTokenCompletionHandler = {
             (error) -> Void in
             print("handlin stuff")
@@ -46,7 +65,7 @@ class HomeViewController: UIViewController {
                 // Something went wrong, try again
                 TraktAPIManager.sharedInstance.startOAuth2Login()
             } else {
-                self.fetchItems()
+                self.fetchItems(completion: { })
             }
         }
         
@@ -54,39 +73,73 @@ class HomeViewController: UIViewController {
             TraktAPIManager.sharedInstance.startOAuth2Login()
 
         }  else {
-            self.fetchItems()
+            self.fetchItems(completion: { })
         }
     }
     
-    private func fetchItems() {
-        print("Token: " + (TraktAPIManager.sharedInstance.getOAuthToken() ?? "No Token!!!"))
+    private func revokeToken()  {
         
-        self.traktInteractor.getPopularMovies { (movies, error) in
+        if let token = TraktAPIManager.sharedInstance.getOAuthToken() {
+            self.traktInteractor.revokeToken(token: token) { (ok) in
+                TraktAPIManager.sharedInstance.revokeToken()
+            }
+        }
+        
+    }
+    
+    @IBAction func refreshClick(_ sender: Any) {
+        self.refreshButton.isUserInteractionEnabled = false
+        self.fetchItems {
+            self.refreshButton.isUserInteractionEnabled = true
+        }
+    }
+    
+    private func fetchItems(completion:  @escaping () -> Void ) {
+        self.isFetching = true
+        print("is fetching")
 
+        self.traktInteractor.getPopularMovies(page: self.lastPageFetched) { (movies, error) in
+            
             if error != nil {
+                self.revokeToken()
+                self.isFetching = false
+                print("finished fetching")
+                completion()
                 return
             }
             self.movies = movies
-
-            var tasks:[Task<TaskResult>] = []
-
-            tasks.append(
-                self.getTask()
-            )
-
-            Task.whenAll(tasks).continueWith { (_) -> Any? in
-
-                self.tableView.reloadData()
-                return nil
-            }
-
+            
+            self.tableView.reloadData()
+            completion()
+            self.isFetching = false
+            
+//            var tasks:[Task<TaskResult>] = []
+//
+//            for movie in movies! {
+//
+//                tasks.append(
+//                    self.traktInteractor.getMovieImages(movieId: Int(movie.ids["tmdb"] as! Int).string, completion: { (filePaths, error) in
+//                        if error != nil {
+//
+//                            return
+//                        }
+//
+//                        movie.imagesPath = filePaths!
+//                    })
+//                )
+//
+//            }
+//
+//            Task.whenAll(tasks).continueWith { (_) -> Any? in
+//                self.tableView.reloadData()
+//                completion()
+//                self.isFetching = false
+//                print("finished fetching")
+//                return nil
+//            }
+            
         }
-    }
-    
-    func getTask() -> Task<TaskResult>  {
-        let taskCompletionSource = TaskCompletionSource<TaskResult>()
-        taskCompletionSource.set(result: TaskResult(result: MoviesDataStateResult.Success))
-        return taskCompletionSource.task
+        
     }
     
 }
@@ -105,9 +158,10 @@ extension HomeViewController : UITableViewDelegate, UITableViewDataSource {
         
         let movie = self.movies[indexPath.row]
         
-        let movieCardView = MovieCardView.create(title: movie.title, year: movie.year, overview: movie.overview)
+        let movieCardView = MovieCardView.create(title: movie.title, year: movie.year, overview: movie.overview, imagesPath: movie.imagesPath)
 
         cell.addCardView(cardView: movieCardView)
+
         
         return cell
     }
@@ -116,4 +170,53 @@ extension HomeViewController : UITableViewDelegate, UITableViewDataSource {
         return 300
     }
     
+}
+
+extension HomeViewController {
+
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if self.movies.count == 0 {
+            return
+        }
+        
+        if (scrollView.contentOffset.y >= (scrollView.contentSize.height - scrollView.frame.size.height)) {
+            print(" you reached end of the table")
+            if !self.isFetching {
+                self.tableView.isScrollEnabled = false
+                self.fetchItems(completion: {
+                    self.scrollToFirstRow()
+                    self.tableView.isScrollEnabled = true
+                    self.lastPageFetched += 1
+                })
+            }
+        }
+
+        if (scrollView.contentOffset.y <= 0) && self.lastPageFetched > 1 {
+            print(" you reached top of the table")
+            if !self.isFetching {
+                self.tableView.isScrollEnabled = false
+                
+                self.fetchItems(completion: {
+                    self.scrollToLastRow()
+                    self.tableView.isScrollEnabled = true
+                    self.lastPageFetched -= 1
+                })
+            }
+        }
+        
+        if (scrollView.contentOffset.y > 0 && scrollView.contentOffset.y < (scrollView.contentSize.height - scrollView.frame.size.height)){
+            //not top and not bottom
+        }
+
+    }
+    
+    func scrollToFirstRow() {
+        let indexPath = IndexPath(row: 0, section: 0)
+        self.tableView.scrollToRow(at: indexPath, at: .top, animated: true)
+    }
+    
+    func scrollToLastRow() {
+        let indexPath = IndexPath(row: 9, section: 0)
+        self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+    }
 }

@@ -17,12 +17,15 @@ enum TraktEndPoint: APIConfiguration {
     case authorize()
     case getToken(tokenBody: TokenBody)
     case revokeToken(revokeTokenBody: RevokeTokenBody)
-    case getPopularMovies()
+    case getPopularMovies(page: Int)
+    
+    case getMovieImages(movieId: String)
     
     var method: HTTPMethod {
         switch self {
         case .authorize,
-             .getPopularMovies:
+             .getPopularMovies,
+             .getMovieImages:
             return .get
         case .getToken,
              .revokeToken:
@@ -38,17 +41,10 @@ enum TraktEndPoint: APIConfiguration {
             return "/oauth/token"
         case .revokeToken(_):
             return "/oauth/revoke"
-        case .getPopularMovies():
+        case .getPopularMovies(_):
             return "/movies/popular"
-        }
-    }
-    
-    var pathWithQuery: (path: String, parameters: Parameters)? {
-        switch self {
-        case .getPopularMovies:
-            return ("/movies/popular",["extended": "full"])
-        default:
-            return nil
+        case .getMovieImages(let movieId):
+            return "/movie/\(movieId)/images"
         }
     }
     
@@ -62,10 +58,16 @@ enum TraktEndPoint: APIConfiguration {
     
     var query: Parameters? {
         switch self {
-        case .authorize():
+        case .authorize:
             return [K.AuthorizeAppParameters.Key.responseType: K.AuthorizeAppParameters.Value.responseType,
                     K.AuthorizeAppParameters.Key.clientId: TrankClient.id.rawValue,
                     K.AuthorizeAppParameters.Key.redirectURI: K.AuthorizeAppParameters.Value.redirectURI]
+        case .getPopularMovies(let page):
+            return ["page": page.string,
+                    "limit": "10",
+                    "extended": "full"]
+        case .getMovieImages:
+            return ["api_key": TmbdClient.apiKey.rawValue]
         default:
             return nil
         }
@@ -100,14 +102,19 @@ enum TraktEndPoint: APIConfiguration {
         }
     }
     
+    var isTmbdServer: Bool {
+        switch self {
+        case .getMovieImages:
+            return true
+        default:
+            return false
+        }
+    }
+    
     // MARK: - URLRequestConvertible
     func asURLRequest() throws -> URLRequest {
-        var url = try ServerHelper.shared.getTraktURL().asURL()
+        var url = try (!isTmbdServer ? ServerHelper.shared.getTraktURL().asURL() : K.TmbdServer.tmbdURL.asURL())
 
-        if (pathWithQuery != nil) {
-            url.appendQueryParameters(pathWithQuery!.parameters as! [String : String])
-        }
-        
         if (query != nil) {
             url.appendQueryParameters(query as! [String : String])
         }

@@ -97,7 +97,7 @@ class TraktAPIManager {
         self.traktInteractor.revokeToken(token: TraktAPIManager.sharedInstance.getOAuthToken()!) { (error) in
             Defaults.remove(DefaultsKeys.accessToken)
             
-            print(error)
+            print("Revoke token -> " + error.string)
         }
     }
 }

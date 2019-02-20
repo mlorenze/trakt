@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		C75E0A26C7D5E1C8DACDB465 /* Pods_trakt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EE7A2956962F127E23863A4 /* Pods_trakt.framework */; };
+		E100884C221CAE9D0031F42B /* ImagesResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E100884B221CAE9D0031F42B /* ImagesResponse.swift */; };
+		E100884E221CAF230031F42B /* PosterResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E100884D221CAF230031F42B /* PosterResponse.swift */; };
 		E114FC7F221B97FC002CEDA7 /* RevokeTokenBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = E114FC7E221B97FC002CEDA7 /* RevokeTokenBody.swift */; };
 		E114FC81221B9F58002CEDA7 /* MovieResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E114FC80221B9F58002CEDA7 /* MovieResponse.swift */; };
 		E114FC85221BA26D002CEDA7 /* IdsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E114FC84221BA26D002CEDA7 /* IdsResponse.swift */; };
@@ -46,6 +48,8 @@
 /* Begin PBXFileReference section */
 		2EE7A2956962F127E23863A4 /* Pods_trakt.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_trakt.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB2E8B4608B072E33805C50C /* Pods-trakt.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-trakt.debug.xcconfig"; path = "Pods/Target Support Files/Pods-trakt/Pods-trakt.debug.xcconfig"; sourceTree = "<group>"; };
+		E100884B221CAE9D0031F42B /* ImagesResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesResponse.swift; sourceTree = "<group>"; };
+		E100884D221CAF230031F42B /* PosterResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterResponse.swift; sourceTree = "<group>"; };
 		E114FC7E221B97FC002CEDA7 /* RevokeTokenBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RevokeTokenBody.swift; sourceTree = "<group>"; };
 		E114FC80221B9F58002CEDA7 /* MovieResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieResponse.swift; sourceTree = "<group>"; };
 		E114FC84221BA26D002CEDA7 /* IdsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdsResponse.swift; sourceTree = "<group>"; };
@@ -233,6 +237,8 @@
 				E1A64134220F7FC600C492C5 /* EmptyResponse.swift */,
 				E114FC80221B9F58002CEDA7 /* MovieResponse.swift */,
 				E114FC84221BA26D002CEDA7 /* IdsResponse.swift */,
+				E100884B221CAE9D0031F42B /* ImagesResponse.swift */,
+				E100884D221CAF230031F42B /* PosterResponse.swift */,
 			);
 			path = Responses;
 			sourceTree = "<group>";
@@ -412,6 +418,7 @@
 				E12CE0CB221C7299005FF1A8 /* MoviesDataStatusResult.swift in Sources */,
 				E1A64113220F4CC000C492C5 /* ServerHelper.swift in Sources */,
 				E1A64111220F49ED00C492C5 /* APIConfiguration.swift in Sources */,
+				E100884C221CAE9D0031F42B /* ImagesResponse.swift in Sources */,
 				E1A6411B220F51A600C492C5 /* DefaultsKeys+Trakt.swift in Sources */,
 				E114FC8D221BB200002CEDA7 /* ShadowView.swift in Sources */,
 				E1A64123220F6B5300C492C5 /* DateFormatter+Trakt.swift in Sources */,
@@ -428,6 +435,7 @@
 				E114FC90221BB3B5002CEDA7 /* MovieCardView.swift in Sources */,
 				E1A6412A220F6C3E00C492C5 /* Season.swift in Sources */,
 				E1A6412C220F6C4800C492C5 /* Episode.swift in Sources */,
+				E100884E221CAF230031F42B /* PosterResponse.swift in Sources */,
 				E1A6412E220F6C5400C492C5 /* Person.swift in Sources */,
 				E1A64121220F550B00C492C5 /* TokenBody.swift in Sources */,
 			);

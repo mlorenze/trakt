@@ -8,17 +8,20 @@
 
 import Foundation
 import Alamofire
+import BoltsSwift
 
 protocol TraktInteractor {
     func getToken(code: String, completion:  @escaping (Token?, Error?) -> Void)
     func getToken(refreshToken: String, completion:  @escaping (Token?, Error?) -> Void)
     func revokeToken(token: String, completion:  @escaping (Bool) -> Void) 
-    func getPopularMovies(completion:  @escaping ([Movie]?, Error?) -> Void)
+    func getPopularMovies(page: Int, completion:  @escaping ([Movie]?, Error?) -> Void)
+    func getMovieImages(movieId: String, completion:  @escaping ([String]?, Error?) -> Void) -> Task<TaskResult>
 }
 
 class TraktInteractorImpl: TraktInteractor {
     
     let client: TraktClient
+    let dispatchQueue = DispatchQueue(label: "interactorBackground")
     
     init() {
         self.client = TraktClient()
@@ -79,22 +82,54 @@ class TraktInteractorImpl: TraktInteractor {
         }
     }
     
-    func getPopularMovies(completion:  @escaping ([Movie]?, Error?) -> Void) {
-        client.getPopularMovies { (response) in
-            switch response.result {
-            case .success(let moviesResponse):
-                var movies: [Movie] = []
-                for movieResponse in moviesResponse {
+    func getPopularMovies(page: Int, completion:  @escaping ([Movie]?, Error?) -> Void) {
+        self.dispatchQueue.async {
+            self.client.getPopularMovies(page: page) { (response) in
+                switch response.result {
+                case .success(let moviesResponse):
+                    var movies: [Movie] = []
+                    for movieResponse in moviesResponse {
+                        
+                        movies.append(Movie(movieResponse: movieResponse))
+                        
+                    }
+                    DispatchQueue.main.async {
+                        completion(movies, nil)
+                    }
                     
-                    movies.append(Movie(movieResponse: movieResponse))
-                
+                case .failure(let error):
+                    print(error)
+                    DispatchQueue.main.async {
+                        completion(nil, error)
+                    }
                 }
-                completion(movies, nil)
-               
-            case .failure(let error):
-                print(error)
-                completion(nil, error)
             }
         }
+    }
+    
+    func getMovieImages(movieId: String, completion:  @escaping ([String]?, Error?) -> Void) -> Task<TaskResult>  {
+        let taskCompletionSource = TaskCompletionSource<TaskResult>()
+        self.dispatchQueue.async {
+            self.client.getMovieImages(movieId: movieId) { (response) in
+                switch response.result {
+                case .success(let movieImagesResponse):
+                    
+                    let postersFilePaths = movieImagesResponse.posters?.map({ (posterResponse) -> String in
+                        return posterResponse.filePath ?? ""
+                    })
+                    DispatchQueue.main.async {
+                        completion(postersFilePaths, nil)
+                    }
+                    taskCompletionSource.set(result: TaskResult(result: MoviesDataStateResult.Success))
+                case .failure(let error):
+                    print(error)
+                    DispatchQueue.main.async {
+                        completion(nil, error)
+                    }
+                    taskCompletionSource.set(error: error)
+                }
+            }
+        }
+        return taskCompletionSource.task
     }
 }
