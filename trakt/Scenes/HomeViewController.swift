@@ -113,30 +113,30 @@ class HomeViewController: UIViewController {
             completion()
             self.isFetching = false
             
-//            var tasks:[Task<TaskResult>] = []
-//
-//            for movie in movies! {
-//
-//                tasks.append(
-//                    self.traktInteractor.getMovieImages(movieId: Int(movie.ids["tmdb"] as! Int).string, completion: { (filePaths, error) in
-//                        if error != nil {
-//
-//                            return
-//                        }
-//
-//                        movie.imagesPath = filePaths!
-//                    })
-//                )
-//
-//            }
-//
-//            Task.whenAll(tasks).continueWith { (_) -> Any? in
-//                self.tableView.reloadData()
-//                completion()
-//                self.isFetching = false
-//                print("finished fetching")
-//                return nil
-//            }
+            var tasks:[Task<TaskResult>] = []
+
+            for movie in movies! {
+
+                tasks.append(
+                    self.traktInteractor.getMovieImages(movieId: Int(movie.ids["tmdb"] as! Int).string, completion: { (filePaths, error) in
+                        if error != nil {
+
+                            return
+                        }
+
+                        movie.imagesPath = filePaths!
+                    })
+                )
+
+            }
+
+            Task.whenAll(tasks).continueWith { (_) -> Any? in
+                self.tableView.reloadData()
+                completion()
+                self.isFetching = false
+                print("finished fetching")
+                return nil
+            }
             
         }
         
@@ -192,16 +192,16 @@ extension HomeViewController {
         }
 
         if (scrollView.contentOffset.y <= 0) && self.lastPageFetched > 1 {
-            print(" you reached top of the table")
-            if !self.isFetching {
-                self.tableView.isScrollEnabled = false
-                
-                self.fetchItems(completion: {
-                    self.scrollToLastRow()
-                    self.tableView.isScrollEnabled = true
-                    self.lastPageFetched -= 1
-                })
-            }
+//            print(" you reached top of the table")
+//            if !self.isFetching {
+//                self.tableView.isScrollEnabled = false
+//
+//                self.fetchItems(completion: {
+//                    self.scrollToLastRow()
+//                    self.tableView.isScrollEnabled = true
+//                    self.lastPageFetched -= 1
+//                })
+//            }
         }
         
         if (scrollView.contentOffset.y > 0 && scrollView.contentOffset.y < (scrollView.contentSize.height - scrollView.frame.size.height)){

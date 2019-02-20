@@ -126,7 +126,7 @@ enum TraktEndPoint: APIConfiguration {
         
         // Common Headers
         urlRequest.setValue(ContentType.json.rawValue, forHTTPHeaderField: HTTPHeaderField.contentType.rawValue)
-        urlRequest.setValue(TrankApi.key.rawValue, forHTTPHeaderField: HTTPHeaderField.traktApiKey.rawValue)
+        urlRequest.setValue(TrankClient.id.rawValue, forHTTPHeaderField: HTTPHeaderField.traktApiKey.rawValue)
         urlRequest.setValue(TrankApi.version.rawValue, forHTTPHeaderField: HTTPHeaderField.traktApiVersion.rawValue)
         
         if tokenRequired {
