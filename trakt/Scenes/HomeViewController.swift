@@ -20,9 +20,7 @@ class HomeViewController: UIViewController {
     private var movies: [Movie]!
     
     private var isFetching: Bool = false
-    private var lastPageFetched: Int = 1
-    
-    private var noTokenNeeded: Bool = true
+    private var actualPage: Int = 1
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,11 +34,6 @@ class HomeViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
-        if noTokenNeeded {
-            loadInitialData()
-            return
-        }
         
         if (!Defaults.bool(forKey: K.Token.loadingOAuthToken)) {
             loadInitialData()
@@ -48,13 +41,6 @@ class HomeViewController: UIViewController {
     }
 
     private func loadInitialData() {
-        
-        if noTokenNeeded {
-            self.fetchItems {
-                self.lastPageFetched += 1
-            }
-            return
-        }
         
         TraktAPIManager.sharedInstance.OAuthTokenCompletionHandler = {
             (error) -> Void in
@@ -65,7 +51,9 @@ class HomeViewController: UIViewController {
                 // Something went wrong, try again
                 TraktAPIManager.sharedInstance.startOAuth2Login()
             } else {
-                self.fetchItems(completion: { })
+                self.fetchItems(completion: {
+                    self.isFetching = false
+                })
             }
         }
         
@@ -73,7 +61,9 @@ class HomeViewController: UIViewController {
             TraktAPIManager.sharedInstance.startOAuth2Login()
 
         }  else {
-            self.fetchItems(completion: { })
+            self.fetchItems(completion: {
+                self.isFetching = false
+            })
         }
     }
     
@@ -98,50 +88,35 @@ class HomeViewController: UIViewController {
         self.isFetching = true
         print("is fetching")
 
-        self.traktInteractor.getPopularMovies(page: self.lastPageFetched) { (movies, error) in
-            
+        self.traktInteractor.getPopularMovies(page: self.actualPage) { (movies, error) in
             if error != nil {
                 self.revokeToken()
-                self.isFetching = false
-                print("finished fetching")
                 completion()
+                print("finished fetching (with error)")
                 return
             }
+            
             self.movies = movies
             
-            self.tableView.reloadData()
-            completion()
-            self.isFetching = false
-            
             var tasks:[Task<TaskResult>] = []
-
             for movie in movies! {
-
                 tasks.append(
                     self.traktInteractor.getMovieImages(movieId: Int(movie.ids["tmdb"] as! Int).string, completion: { (filePaths, error) in
                         if error != nil {
-
                             return
                         }
-
                         movie.imagesPath = filePaths!
                     })
                 )
-
             }
-
             Task.whenAll(tasks).continueWith { (_) -> Any? in
                 self.tableView.reloadData()
                 completion()
-                self.isFetching = false
-                print("finished fetching")
+                print("finished fetching (successfuly)")
                 return nil
             }
-            
         }
-        
     }
-    
 }
 
 
@@ -183,25 +158,26 @@ extension HomeViewController {
             print(" you reached end of the table")
             if !self.isFetching {
                 self.tableView.isScrollEnabled = false
+                self.actualPage += 1
                 self.fetchItems(completion: {
                     self.scrollToFirstRow()
+                    self.isFetching = false
                     self.tableView.isScrollEnabled = true
-                    self.lastPageFetched += 1
                 })
             }
         }
 
-        if (scrollView.contentOffset.y <= 0) && self.lastPageFetched > 1 {
-//            print(" you reached top of the table")
-//            if !self.isFetching {
-//                self.tableView.isScrollEnabled = false
-//
-//                self.fetchItems(completion: {
-//                    self.scrollToLastRow()
-//                    self.tableView.isScrollEnabled = true
-//                    self.lastPageFetched -= 1
-//                })
-//            }
+        if (scrollView.contentOffset.y <= 0) && self.actualPage > 1 {
+            print(" you reached top of the table")
+            if !self.isFetching {
+                self.tableView.isScrollEnabled = false
+                self.actualPage -= 1
+                self.fetchItems(completion: {
+                    self.scrollToLastRow()
+                    self.isFetching = false
+                    self.tableView.isScrollEnabled = true
+                })
+            }
         }
         
         if (scrollView.contentOffset.y > 0 && scrollView.contentOffset.y < (scrollView.contentSize.height - scrollView.frame.size.height)){
