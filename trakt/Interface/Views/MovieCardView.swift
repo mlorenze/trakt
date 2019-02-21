@@ -30,7 +30,7 @@ class MovieCardView: UIView {
         
         do {
             if imagesPath.count > 0 {
-                let imageURL = String(format: "%@%@", TmbdClient.tmbdImagesUrl.rawValue , imagesPath[0] )
+                let imageURL = String(format: "%@%@", TmbdApi.tmbdImagesUrl.rawValue , imagesPath[0] )
                 let url = URL(string: imageURL)
                 let data = try Data(contentsOf: url!)
                 view.pictureImageView.image = UIImage(data: data)

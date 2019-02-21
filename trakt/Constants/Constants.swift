@@ -68,16 +68,12 @@ enum ContentType: String {
 }
 
 enum TrankApi: String {
-    case key = ""
+    case id = "40394f912bbbd855a9a89395d0262630ca352025740137556d4beb9cd1696983"
+    case secret = "5a8e0d82e6b9cd9d1a8b76638ecb9c7e1a57a6f14ba9affbb58ecdf52ebe4010"
     case version = "2"
 }
 
-enum TrankClient: String {
-    case id = "40394f912bbbd855a9a89395d0262630ca352025740137556d4beb9cd1696983"
-    case secret = "5a8e0d82e6b9cd9d1a8b76638ecb9c7e1a57a6f14ba9affbb58ecdf52ebe4010"
-}
-
-enum TmbdClient: String {
+enum TmbdApi: String {
     case tmbdImagesUrl = "https://image.tmdb.org/t/p/w500"
-    case apiKey = "67fcecb41ff40624c89725f225640da7"
+    case key = "67fcecb41ff40624c89725f225640da7"
 }

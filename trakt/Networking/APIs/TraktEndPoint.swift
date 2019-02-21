@@ -60,14 +60,14 @@ enum TraktEndPoint: APIConfiguration {
         switch self {
         case .authorize:
             return [K.AuthorizeAppParameters.Key.responseType: K.AuthorizeAppParameters.Value.responseType,
-                    K.AuthorizeAppParameters.Key.clientId: TrankClient.id.rawValue,
+                    K.AuthorizeAppParameters.Key.clientId: TrankApi.id.rawValue,
                     K.AuthorizeAppParameters.Key.redirectURI: K.AuthorizeAppParameters.Value.redirectURI]
         case .getPopularMovies(let page):
             return ["page": page.string,
                     "limit": "10",
                     "extended": "full"]
         case .getMovieImages:
-            return ["api_key": TmbdClient.apiKey.rawValue]
+            return ["api_key": TmbdApi.key.rawValue]
         default:
             return nil
         }
@@ -126,7 +126,7 @@ enum TraktEndPoint: APIConfiguration {
         
         // Common Headers
         urlRequest.setValue(ContentType.json.rawValue, forHTTPHeaderField: HTTPHeaderField.contentType.rawValue)
-        urlRequest.setValue(TrankClient.id.rawValue, forHTTPHeaderField: HTTPHeaderField.traktApiKey.rawValue)
+        urlRequest.setValue(TrankApi.id.rawValue, forHTTPHeaderField: HTTPHeaderField.traktApiKey.rawValue)
         urlRequest.setValue(TrankApi.version.rawValue, forHTTPHeaderField: HTTPHeaderField.traktApiVersion.rawValue)
         
         if tokenRequired {

@@ -30,8 +30,8 @@ class TraktInteractorImpl: TraktInteractor {
     func getToken(code: String, completion:  @escaping (Token?, Error?) -> Void) {
         
         let tokenBody = TokenBody(code: code,
-                                  clientId: TrankClient.id.rawValue,
-                                  clientSecret: TrankClient.secret.rawValue,
+                                  clientId: TrankApi.id.rawValue,
+                                  clientSecret: TrankApi.secret.rawValue,
                                   redirectUri: K.AuthorizeAppParameters.Value.redirectURI,
                                   grantType: K.AuthorizeAppParameters.Value.grantType)
         
@@ -49,8 +49,8 @@ class TraktInteractorImpl: TraktInteractor {
     func getToken(refreshToken: String, completion:  @escaping (Token?, Error?) -> Void) {
 
         let tokenBody = TokenBody(refreshToken: refreshToken,
-                                  clientId: TrankClient.id.rawValue,
-                                  clientSecret: TrankClient.secret.rawValue,
+                                  clientId: TrankApi.id.rawValue,
+                                  clientSecret: TrankApi.secret.rawValue,
                                   redirectUri: K.AuthorizeAppParameters.Value.redirectURI,
                                   grantType: K.AuthorizeAppParameters.Value.grantType)
 
@@ -68,8 +68,8 @@ class TraktInteractorImpl: TraktInteractor {
     func revokeToken(token: String, completion:  @escaping (Bool) -> Void) {
         
         let revokeToken = RevokeTokenBody(token: token,
-                                          clientId: TrankClient.id.rawValue,
-                                          clientSecret: TrankClient.secret.rawValue)
+                                          clientId: TrankApi.id.rawValue,
+                                          clientSecret: TrankApi.secret.rawValue)
         
         client.revokeToken(revokeTokenBody: revokeToken) { (response) in
             switch response.result {
