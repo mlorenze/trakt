@@ -10,6 +10,7 @@
 		C75E0A26C7D5E1C8DACDB465 /* Pods_trakt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EE7A2956962F127E23863A4 /* Pods_trakt.framework */; };
 		E100884C221CAE9D0031F42B /* ImagesResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E100884B221CAE9D0031F42B /* ImagesResponse.swift */; };
 		E100884E221CAF230031F42B /* PosterResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E100884D221CAF230031F42B /* PosterResponse.swift */; };
+		E101AB66221F1E4600A48B0F /* MoviesTableViewHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E101AB65221F1E4600A48B0F /* MoviesTableViewHandler.swift */; };
 		E114FC7F221B97FC002CEDA7 /* RevokeTokenBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = E114FC7E221B97FC002CEDA7 /* RevokeTokenBody.swift */; };
 		E114FC81221B9F58002CEDA7 /* MovieResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E114FC80221B9F58002CEDA7 /* MovieResponse.swift */; };
 		E114FC85221BA26D002CEDA7 /* IdsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E114FC84221BA26D002CEDA7 /* IdsResponse.swift */; };
@@ -50,6 +51,7 @@
 		CB2E8B4608B072E33805C50C /* Pods-trakt.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-trakt.debug.xcconfig"; path = "Pods/Target Support Files/Pods-trakt/Pods-trakt.debug.xcconfig"; sourceTree = "<group>"; };
 		E100884B221CAE9D0031F42B /* ImagesResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesResponse.swift; sourceTree = "<group>"; };
 		E100884D221CAF230031F42B /* PosterResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterResponse.swift; sourceTree = "<group>"; };
+		E101AB65221F1E4600A48B0F /* MoviesTableViewHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesTableViewHandler.swift; sourceTree = "<group>"; };
 		E114FC7E221B97FC002CEDA7 /* RevokeTokenBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RevokeTokenBody.swift; sourceTree = "<group>"; };
 		E114FC80221B9F58002CEDA7 /* MovieResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieResponse.swift; sourceTree = "<group>"; };
 		E114FC84221BA26D002CEDA7 /* IdsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdsResponse.swift; sourceTree = "<group>"; };
@@ -124,6 +126,7 @@
 				E114FC87221BAE66002CEDA7 /* Cells */,
 				E1A640FC220F47D300C492C5 /* Main.storyboard */,
 				E114FC8C221BB200002CEDA7 /* ShadowView.swift */,
+				E101AB65221F1E4600A48B0F /* MoviesTableViewHandler.swift */,
 			);
 			path = Interface;
 			sourceTree = "<group>";
@@ -425,6 +428,7 @@
 				E114FC7F221B97FC002CEDA7 /* RevokeTokenBody.swift in Sources */,
 				E1A64116220F4D3C00C492C5 /* Constants.swift in Sources */,
 				E114FC81221B9F58002CEDA7 /* MovieResponse.swift in Sources */,
+				E101AB66221F1E4600A48B0F /* MoviesTableViewHandler.swift in Sources */,
 				E1A640FB220F47D300C492C5 /* HomeViewController.swift in Sources */,
 				E1A64128220F6C3200C492C5 /* Show.swift in Sources */,
 				E114FC85221BA26D002CEDA7 /* IdsResponse.swift in Sources */,

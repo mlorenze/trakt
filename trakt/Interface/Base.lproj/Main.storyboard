@@ -29,10 +29,6 @@
                                         <real key="value" value="1"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="zpV-x3-ZhU"/>
-                                    <outlet property="delegate" destination="BYZ-38-t0r" id="gt5-RA-ROn"/>
-                                </connections>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3We-3y-k4e">
                                 <rect key="frame" x="157.5" y="74" width="60" height="30"/>
@@ -91,9 +87,32 @@
                     <view key="view" contentMode="scaleToFill" id="a0z-qB-6Jv">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="sJ8-CW-TEE">
+                                <rect key="frame" x="0.0" y="64" width="375" height="56"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="uoF-Aa-LVt">
+                                <rect key="frame" x="0.0" y="120" width="375" height="547"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="sJ8-CW-TEE" firstAttribute="trailing" secondItem="9mi-HH-RiX" secondAttribute="trailing" id="6hq-VR-K9w"/>
+                            <constraint firstItem="sJ8-CW-TEE" firstAttribute="top" secondItem="9mi-HH-RiX" secondAttribute="top" id="AfI-Nr-HQg"/>
+                            <constraint firstItem="sJ8-CW-TEE" firstAttribute="leading" secondItem="9mi-HH-RiX" secondAttribute="leading" id="Ogb-ab-p47"/>
+                            <constraint firstItem="9mi-HH-RiX" firstAttribute="bottom" secondItem="uoF-Aa-LVt" secondAttribute="bottom" id="bdJ-qQ-eBJ"/>
+                            <constraint firstItem="9mi-HH-RiX" firstAttribute="trailing" secondItem="uoF-Aa-LVt" secondAttribute="trailing" id="duR-Qp-gF4"/>
+                            <constraint firstItem="uoF-Aa-LVt" firstAttribute="leading" secondItem="9mi-HH-RiX" secondAttribute="leading" id="m8q-K2-8Jm"/>
+                            <constraint firstItem="uoF-Aa-LVt" firstAttribute="top" secondItem="sJ8-CW-TEE" secondAttribute="bottom" id="mBz-se-rI9"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="9mi-HH-RiX"/>
                     </view>
+                    <connections>
+                        <outlet property="searchBar" destination="sJ8-CW-TEE" id="m1n-yZ-dlJ"/>
+                        <outlet property="tableView" destination="uoF-Aa-LVt" id="13r-Xd-iAM"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8Sp-xm-6Ao" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

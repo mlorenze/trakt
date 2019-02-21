@@ -77,3 +77,7 @@ enum TmbdApi: String {
     case tmbdImagesUrl = "https://image.tmdb.org/t/p/w500"
     case key = "67fcecb41ff40624c89725f225640da7"
 }
+
+struct UISettings {
+    static let cellHeight: Float = 300
+}

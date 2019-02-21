@@ -15,9 +15,9 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var refreshButton: UIButton!
     @IBOutlet weak var tableView: UITableView!
     
-    private let traktInteractor: TraktInteractor! = TraktInteractorImpl()
+    var moviesTableViewHandler: MoviesTableViewHandler!
     
-    private var movies: [Movie]!
+    private let traktInteractor: TraktInteractor! = TraktInteractorImpl()
     
     private var isFetching: Bool = false
     private var actualPage: Int = 1
@@ -26,10 +26,8 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         
         self.title = "Home"
-        self.movies = [Movie]()
         
-        tableView.register(GenericTableViewCell.nib, forCellReuseIdentifier: GenericTableViewCell.reuseIdentifier)
-
+        self.moviesTableViewHandler = MoviesTableViewHandler(self.tableView, paginationDelegate: self)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -96,7 +94,7 @@ class HomeViewController: UIViewController {
                 return
             }
             
-            self.movies = movies
+            self.moviesTableViewHandler.setMovies(movies!)
             
             var tasks:[Task<TaskResult>] = []
             for movie in movies! {
@@ -119,80 +117,13 @@ class HomeViewController: UIViewController {
     }
 }
 
-
-//MARK: - Table Delegates
-extension HomeViewController : UITableViewDelegate, UITableViewDataSource {
-
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.movies.count
+extension HomeViewController: MoviesPaginationDelegate {
+    
+    func scrollTableViewReachedTop() {
+        
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: GenericTableViewCell.reuseIdentifier, for: indexPath) as! GenericTableViewCell
-        cell.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: UIScreen.main.bounds.width)
+    func scrollTableViewReachedEnd() {
         
-        let movie = self.movies[indexPath.row]
-        
-        let movieCardView = MovieCardView.create(title: movie.title, year: movie.year, overview: movie.overview, imagesPath: movie.imagesPath)
-
-        cell.addCardView(cardView: movieCardView)
-
-        
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 300
-    }
-    
-}
-
-extension HomeViewController {
-
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if self.movies.count == 0 {
-            return
-        }
-        
-        if (scrollView.contentOffset.y >= (scrollView.contentSize.height - scrollView.frame.size.height)) {
-            print(" you reached end of the table")
-            if !self.isFetching {
-                self.tableView.isScrollEnabled = false
-                self.actualPage += 1
-                self.fetchItems(completion: {
-                    self.scrollToFirstRow()
-                    self.isFetching = false
-                    self.tableView.isScrollEnabled = true
-                })
-            }
-        }
-
-        if (scrollView.contentOffset.y <= 0) && self.actualPage > 1 {
-            print(" you reached top of the table")
-            if !self.isFetching {
-                self.tableView.isScrollEnabled = false
-                self.actualPage -= 1
-                self.fetchItems(completion: {
-                    self.scrollToLastRow()
-                    self.isFetching = false
-                    self.tableView.isScrollEnabled = true
-                })
-            }
-        }
-        
-        if (scrollView.contentOffset.y > 0 && scrollView.contentOffset.y < (scrollView.contentSize.height - scrollView.frame.size.height)){
-            //not top and not bottom
-        }
-
-    }
-    
-    func scrollToFirstRow() {
-        let indexPath = IndexPath(row: 0, section: 0)
-        self.tableView.scrollToRow(at: indexPath, at: .top, animated: true)
-    }
-    
-    func scrollToLastRow() {
-        let indexPath = IndexPath(row: 9, section: 0)
-        self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
     }
 }

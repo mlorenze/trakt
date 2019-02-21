@@ -10,13 +10,35 @@ import UIKit
 
 class SearchViewController: UIViewController {
 
+    @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet weak var tableView: UITableView!
+    
+    var moviesTableViewHandler: MoviesTableViewHandler!
+    
+    private let traktInteractor: TraktInteractor! = TraktInteractorImpl()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.title = "Search"
+
+        self.moviesTableViewHandler = MoviesTableViewHandler(self.tableView, paginationDelegate: self)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
+    }
+
+}
+
+extension SearchViewController: MoviesPaginationDelegate {
+    
+    func scrollTableViewReachedTop() {
         
     }
     
-
+    func scrollTableViewReachedEnd() {
+        
+    }
 }
