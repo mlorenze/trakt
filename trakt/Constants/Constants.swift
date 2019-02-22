@@ -80,4 +80,5 @@ enum TmbdApi: String {
 
 struct UISettings {
     static let cellHeight: Float = 300
+    static let maxCells: Int = 10
 }

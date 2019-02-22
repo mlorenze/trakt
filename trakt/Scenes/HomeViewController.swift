@@ -9,6 +9,11 @@
 import UIKit
 import SwiftyUserDefaults
 import BoltsSwift
+import SVProgressHUD
+
+enum FetchingPageAction {
+    case previous, next, actual
+}
 
 class HomeViewController: UIViewController {
 
@@ -20,7 +25,7 @@ class HomeViewController: UIViewController {
     private let traktInteractor: TraktInteractor! = TraktInteractorImpl()
     
     private var isFetching: Bool = false
-    private var actualPage: Int = 1
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -76,21 +81,23 @@ class HomeViewController: UIViewController {
     }
     
     @IBAction func refreshClick(_ sender: Any) {
-        self.refreshButton.isUserInteractionEnabled = false
-        self.fetchItems {
-            self.refreshButton.isUserInteractionEnabled = true
-        }
+//        self.refreshButton.isUserInteractionEnabled = false
+//        self.fetchItems {
+//            self.refreshButton.isUserInteractionEnabled = true
+//        }
     }
     
-    private func fetchItems(completion:  @escaping () -> Void ) {
+    private func fetchItems(completion:  @escaping () -> Void) {
+        SVProgressHUD.show()
         self.isFetching = true
-        print("is fetching")
+        print("FETCH MOVIES: is fetching page \(self.moviesTableViewHandler.getActualPage())")
 
-        self.traktInteractor.getPopularMovies(page: self.actualPage) { (movies, error) in
+        self.traktInteractor.getPopularMovies(page: self.moviesTableViewHandler.getActualPage()) { (movies, error) in
             if error != nil {
                 self.revokeToken()
                 completion()
-                print("finished fetching (with error)")
+                print("FETCH MOVIES: finished fetching (with error)")
+                SVProgressHUD.dismiss()
                 return
             }
             
@@ -108,9 +115,10 @@ class HomeViewController: UIViewController {
                 )
             }
             Task.whenAll(tasks).continueWith { (_) -> Any? in
-                self.tableView.reloadData()
                 completion()
-                print("finished fetching (successfuly)")
+                self.tableView.reloadData()
+                print("FETCH MOVIES: finished fetching (successfuly)")
+                SVProgressHUD.dismiss()
                 return nil
             }
         }
@@ -119,11 +127,23 @@ class HomeViewController: UIViewController {
 
 extension HomeViewController: MoviesPaginationDelegate {
     
-    func scrollTableViewReachedTop() {
-        
+    func changeToNextPage(completion:  @escaping () -> Void) {
+        if !self.isFetching{
+            self.moviesTableViewHandler.updateActualPage(action: .next)
+            self.fetchItems(completion: {
+                self.isFetching = false
+                completion()
+            })
+        }
     }
     
-    func scrollTableViewReachedEnd() {
-        
+    func changeToPreviousPage(completion:  @escaping () -> Void) {
+        if !self.isFetching{
+            self.moviesTableViewHandler.updateActualPage(action: .previous)
+            self.fetchItems(completion: {
+                self.isFetching = false
+                completion()
+            })
+        }
     }
 }

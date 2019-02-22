@@ -9,8 +9,8 @@
 import UIKit
 
 protocol MoviesPaginationDelegate {
-    func scrollTableViewReachedTop()
-    func scrollTableViewReachedEnd()
+    func changeToNextPage(completion:  @escaping () -> Void)
+    func changeToPreviousPage(completion:  @escaping () -> Void)
 }
 
 class MoviesTableViewHandler: NSObject, UITableViewDelegate, UITableViewDataSource {
@@ -19,6 +19,8 @@ class MoviesTableViewHandler: NSObject, UITableViewDelegate, UITableViewDataSour
     private var movies: [Movie]
     private var paginationDelegate: MoviesPaginationDelegate!
     
+    private var actualPage: Int = 1
+    private var canPaging: Bool = true
     
     init(_ tableView: UITableView, paginationDelegate: MoviesPaginationDelegate) {
         self.movies = [Movie]()
@@ -41,6 +43,21 @@ class MoviesTableViewHandler: NSObject, UITableViewDelegate, UITableViewDataSour
     
     func reloadData() {
         self.tableView.reloadData()
+    }
+    
+    func getActualPage() -> Int {
+        return self.actualPage
+    }
+    
+    func updateActualPage(action: FetchingPageAction) {
+        switch action {
+        case .actual:
+            break
+        case .previous:
+            self.actualPage -= 1
+        case .next:
+            self.actualPage += 1
+        }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -74,35 +91,33 @@ extension MoviesTableViewHandler {
         }
         
         if (scrollView.contentOffset.y >= (scrollView.contentSize.height - scrollView.frame.size.height)) {
-            print(" you reached end of the table")
-//            if !self.isFetching {
-//                self.tableView.isScrollEnabled = false
-//                self.actualPage += 1
-//                self.fetchItems(completion: {
-//                    self.scrollToFirstRow()
-//                    self.isFetching = false
-//                    self.tableView.isScrollEnabled = true
-//                })
-//            }
+            if !self.canPaging {
+                return
+            }
+            self.canPaging = false
+            self.tableView.isScrollEnabled = false
+            self.paginationDelegate.changeToNextPage(completion: {
+                self.scrollToFirstRow()
+                self.tableView.isScrollEnabled = true
+            })
         }
         
-//        if (scrollView.contentOffset.y <= 0) && self.actualPage > 1 {
-//            print(" you reached top of the table")
-//            if !self.isFetching {
-//                self.tableView.isScrollEnabled = false
-//                self.actualPage -= 1
-//                self.fetchItems(completion: {
-//                    self.scrollToLastRow()
-//                    self.isFetching = false
-//                    self.tableView.isScrollEnabled = true
-//                })
-//            }
-//        }
-        
-        if (scrollView.contentOffset.y > 0 && scrollView.contentOffset.y < (scrollView.contentSize.height - scrollView.frame.size.height)){
-            //not top and not bottom
+        if (scrollView.contentOffset.y <= 0) && self.actualPage > 1 {
+            if !self.canPaging {
+                return
+            }
+            self.canPaging = false
+            self.tableView.isScrollEnabled = false
+            self.paginationDelegate.changeToPreviousPage(completion: {
+                self.scrollToLastRow()
+                self.tableView.isScrollEnabled = true
+            })
         }
         
+    }
+    
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        self.canPaging = true
     }
     
     private func scrollToFirstRow() {
@@ -111,7 +126,7 @@ extension MoviesTableViewHandler {
     }
     
     private func scrollToLastRow() {
-        let indexPath = IndexPath(row: 9, section: 0)
+        let indexPath = IndexPath(row: UISettings.maxCells - 1, section: 0)
         self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
     }
 

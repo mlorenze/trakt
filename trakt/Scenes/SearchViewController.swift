@@ -33,12 +33,12 @@ class SearchViewController: UIViewController {
 }
 
 extension SearchViewController: MoviesPaginationDelegate {
-    
-    func scrollTableViewReachedTop() {
+    func changeToNextPage(completion: @escaping () -> Void) {
         
     }
     
-    func scrollTableViewReachedEnd() {
+    func changeToPreviousPage(completion: @escaping () -> Void) {
         
     }
+
 }

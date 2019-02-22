@@ -64,7 +64,7 @@ enum TraktEndPoint: APIConfiguration {
                     K.AuthorizeAppParameters.Key.redirectURI: K.AuthorizeAppParameters.Value.redirectURI]
         case .getPopularMovies(let page):
             return ["page": page.string,
-                    "limit": "10",
+                    "limit": "\(UISettings.maxCells)",
                     "extended": "full"]
         case .getMovieImages:
             return ["api_key": TmbdApi.key.rawValue]
