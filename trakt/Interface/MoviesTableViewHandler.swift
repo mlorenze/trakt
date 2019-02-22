@@ -33,8 +33,19 @@ class MoviesTableViewHandler: NSObject, UITableViewDelegate, UITableViewDataSour
         self.tableView.register(GenericTableViewCell.nib, forCellReuseIdentifier: GenericTableViewCell.reuseIdentifier)
     }
     
-    func setMovies(_ movies: [Movie]){
-        self.movies = movies
+    func setMovies(_ movies: [Movie], action: FetchingPageAction){
+        switch action {
+        case .actual:
+            self.movies = movies
+        case .previous:
+            self.movies.removeLast(UISettings.maxCells)
+            self.movies.insert(contentsOf: movies, at: 0)
+        case .next:
+            if self.actualPage > 1 {
+                self.movies.removeFirst(UISettings.maxCells)
+            }
+            self.movies.append(contentsOf: movies)
+        }
     }
     
     func hasMovies() -> Bool {
@@ -70,7 +81,7 @@ class MoviesTableViewHandler: NSObject, UITableViewDelegate, UITableViewDataSour
         
         let movie = self.movies[indexPath.row]
         
-        let movieCardView = MovieCardView.create(title: movie.title, year: movie.year, overview: movie.overview, imagesPath: movie.imagesPath)
+        let movieCardView = MovieCardView.create(title: movie.title, year: movie.year, overview: movie.overview, posters: movie.posters)
         
         cell.addCardView(cardView: movieCardView)
         
@@ -97,7 +108,7 @@ extension MoviesTableViewHandler {
             self.canPaging = false
             self.tableView.isScrollEnabled = false
             self.paginationDelegate.changeToNextPage(completion: {
-                self.scrollToFirstRow()
+                //self.scrollToFirstRow()
                 self.tableView.isScrollEnabled = true
             })
         }
@@ -109,7 +120,7 @@ extension MoviesTableViewHandler {
             self.canPaging = false
             self.tableView.isScrollEnabled = false
             self.paginationDelegate.changeToPreviousPage(completion: {
-                self.scrollToLastRow()
+                //self.scrollToLastRow()
                 self.tableView.isScrollEnabled = true
             })
         }

@@ -16,8 +16,10 @@ class MovieCardView: UIView {
     @IBOutlet weak var yearLabel: UILabel!
     @IBOutlet weak var pictureImageView: UIImageView!
     @IBOutlet weak var overviewTextView: UITextView!
+    
+    @IBOutlet weak var pictureHeightConstraint: NSLayoutConstraint!
 
-    static func create(title: String, year: Int, overview: String, imagesPath: [String]) -> MovieCardView {
+    static func create(title: String, year: Int, overview: String, posters: [Poster]) -> MovieCardView {
         
         let view = nib.instantiate(withOwner: nil, options: nil).first as! MovieCardView
         
@@ -29,11 +31,15 @@ class MovieCardView: UIView {
         view.overviewTextView.text = overview
         
         do {
-            if imagesPath.count > 0 {
-                let imageURL = String(format: "%@%@", TmbdApi.tmbdImagesUrl.rawValue , imagesPath[0] )
+            if posters.count > 0 {
+                let poster = posters[0]
+                let imageURL = String(format: "%@%@", TmbdApi.tmbdImagesUrl.rawValue , poster.filePath )
                 let url = URL(string: imageURL)
                 let data = try Data(contentsOf: url!)
                 view.pictureImageView.image = UIImage(data: data)
+                
+                view.pictureHeightConstraint.constant = view.pictureImageView.width / CGFloat(poster.aspectRatio)
+                
             }else{
                 view.pictureImageView.image = UIImage(named: "icSearch")
             }

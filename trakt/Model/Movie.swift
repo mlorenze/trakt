@@ -14,7 +14,7 @@ class Movie: NSObject {
     var ids: [String : AnyObject]
     let overview: String
     
-    var imagesPath: [String]
+    var posters: [Poster]
     
     init(movieResponse: MovieResponse) {
         self.title = movieResponse.title ?? ""
@@ -22,10 +22,10 @@ class Movie: NSObject {
         self.ids = [String:AnyObject]()
         self.ids["tmdb"] = movieResponse.ids?.tmdb as AnyObject
         self.overview = movieResponse.overview ?? ""
-        self.imagesPath = [String]()
+        self.posters = [Poster]()
     }
     
-    func setImagesPath(pathArray: [String]) {
-        self.imagesPath = pathArray
+    func setPosters(posters: [Poster]) {
+        self.posters = posters
     }
 }

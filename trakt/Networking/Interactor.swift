@@ -15,7 +15,7 @@ protocol TraktInteractor {
     func getToken(refreshToken: String, completion:  @escaping (Token?, Error?) -> Void)
     func revokeToken(token: String, completion:  @escaping (Bool) -> Void) 
     func getPopularMovies(page: Int, completion:  @escaping ([Movie]?, Error?) -> Void)
-    func getMovieImages(movieId: String, completion:  @escaping ([String]?, Error?) -> Void) -> Task<TaskResult>
+    func getMovieImages(movieId: String, completion:  @escaping ([Poster]?, Error?) -> Void) -> Task<TaskResult>
 }
 
 class TraktInteractorImpl: TraktInteractor {
@@ -107,18 +107,18 @@ class TraktInteractorImpl: TraktInteractor {
         }
     }
     
-    func getMovieImages(movieId: String, completion:  @escaping ([String]?, Error?) -> Void) -> Task<TaskResult>  {
+    func getMovieImages(movieId: String, completion:  @escaping ([Poster]?, Error?) -> Void) -> Task<TaskResult>  {
         let taskCompletionSource = TaskCompletionSource<TaskResult>()
         self.dispatchQueue.async {
             self.client.getMovieImages(movieId: movieId) { (response) in
                 switch response.result {
                 case .success(let movieImagesResponse):
                     
-                    let postersFilePaths = movieImagesResponse.posters?.map({ (posterResponse) -> String in
-                        return posterResponse.filePath ?? ""
+                    let posters = movieImagesResponse.posters?.map({ (posterResponse) -> Poster in
+                        return Poster(posterResponse: posterResponse)
                     })
                     DispatchQueue.main.async {
-                        completion(postersFilePaths, nil)
+                        completion(posters, nil)
                     }
                     taskCompletionSource.set(result: TaskResult(result: MoviesDataStateResult.Success))
                 case .failure(let error):

@@ -101,16 +101,16 @@ class HomeViewController: UIViewController {
                 return
             }
             
-            self.moviesTableViewHandler.setMovies(movies!)
+            self.moviesTableViewHandler.setMovies(movies!, action: fetchingAction)
             
             var tasks:[Task<TaskResult>] = []
             for movie in movies! {
                 tasks.append(
-                    self.traktInteractor.getMovieImages(movieId: Int(movie.ids["tmdb"] as! Int).string, completion: { (filePaths, error) in
+                    self.traktInteractor.getMovieImages(movieId: Int(movie.ids["tmdb"] as! Int).string, completion: { (posters, error) in
                         if error != nil {
                             return
                         }
-                        movie.imagesPath = filePaths!
+                        movie.posters = posters!
                     })
                 )
             }
