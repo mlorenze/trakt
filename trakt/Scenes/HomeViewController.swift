@@ -54,7 +54,7 @@ class HomeViewController: UIViewController {
                 // Something went wrong, try again
                 TraktAPIManager.sharedInstance.startOAuth2Login()
             } else {
-                self.fetchItems(completion: {
+                self.fetchItems(fetchingAction: .actual, completion: {
                     self.isFetching = false
                 })
             }
@@ -64,7 +64,7 @@ class HomeViewController: UIViewController {
             TraktAPIManager.sharedInstance.startOAuth2Login()
 
         }  else {
-            self.fetchItems(completion: {
+            self.fetchItems(fetchingAction: .actual, completion: {
                 self.isFetching = false
             })
         }
@@ -87,7 +87,7 @@ class HomeViewController: UIViewController {
 //        }
     }
     
-    private func fetchItems(completion:  @escaping () -> Void) {
+    private func fetchItems(fetchingAction: FetchingPageAction, completion:  @escaping () -> Void) {
         SVProgressHUD.show()
         self.isFetching = true
         print("FETCH MOVIES: is fetching page \(self.moviesTableViewHandler.getActualPage())")
@@ -130,7 +130,7 @@ extension HomeViewController: MoviesPaginationDelegate {
     func changeToNextPage(completion:  @escaping () -> Void) {
         if !self.isFetching{
             self.moviesTableViewHandler.updateActualPage(action: .next)
-            self.fetchItems(completion: {
+            self.fetchItems(fetchingAction: .next, completion: {
                 self.isFetching = false
                 completion()
             })
@@ -140,7 +140,7 @@ extension HomeViewController: MoviesPaginationDelegate {
     func changeToPreviousPage(completion:  @escaping () -> Void) {
         if !self.isFetching{
             self.moviesTableViewHandler.updateActualPage(action: .previous)
-            self.fetchItems(completion: {
+            self.fetchItems(fetchingAction: .previous, completion: {
                 self.isFetching = false
                 completion()
             })
