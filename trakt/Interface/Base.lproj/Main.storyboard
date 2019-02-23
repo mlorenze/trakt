@@ -30,36 +30,25 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3We-3y-k4e">
-                                <rect key="frame" x="157.5" y="74" width="60" height="30"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Popular Movies" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hUu-pa-n4Y">
+                                <rect key="frame" x="0.0" y="64" width="375" height="50"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="RAf-ir-Tw4"/>
-                                    <constraint firstAttribute="width" constant="60" id="jY0-ug-BDN"/>
+                                    <constraint firstAttribute="height" constant="50" id="CFe-H2-R7M"/>
                                 </constraints>
-                                <state key="normal" title="Refresh"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                        <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                        <real key="value" value="1"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <real key="value" value="8"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="refreshClick:" destination="BYZ-38-t0r" eventType="touchUpInside" id="wgb-l3-IV6"/>
-                                </connections>
-                            </button>
+                                <fontDescription key="fontDescription" name="Arial-BoldMT" family="Arial" pointSize="24"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="59x-PX-Idb" firstAttribute="top" secondItem="3We-3y-k4e" secondAttribute="bottom" constant="10" id="12Q-mo-Z27"/>
-                            <constraint firstItem="3We-3y-k4e" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="10" id="L0g-uh-1q7"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="hUu-pa-n4Y" secondAttribute="trailing" id="0eU-xi-g9U"/>
+                            <constraint firstItem="hUu-pa-n4Y" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="23Q-k9-LMz"/>
+                            <constraint firstItem="hUu-pa-n4Y" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="EU6-CI-7j3"/>
+                            <constraint firstItem="hUu-pa-n4Y" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="G7A-4s-SqA"/>
+                            <constraint firstItem="59x-PX-Idb" firstAttribute="top" secondItem="hUu-pa-n4Y" secondAttribute="bottom" id="IwB-DB-bUy"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="59x-PX-Idb" secondAttribute="bottom" id="OrO-9r-LzN"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="59x-PX-Idb" secondAttribute="trailing" id="agY-Yn-hGo"/>
-                            <constraint firstItem="3We-3y-k4e" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="gW2-qw-M8V"/>
                             <constraint firstItem="59x-PX-Idb" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="joU-Ym-Xaa"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -72,7 +61,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="refreshButton" destination="3We-3y-k4e" id="dGw-08-a1n"/>
+                        <outlet property="popularMoviesLabel" destination="hUu-pa-n4Y" id="Yql-Js-LNF"/>
                         <outlet property="tableView" destination="59x-PX-Idb" id="8o6-Bv-BBC"/>
                     </connections>
                 </viewController>

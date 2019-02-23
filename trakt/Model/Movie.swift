@@ -9,6 +9,8 @@
 import Foundation
 
 class Movie: NSObject {
+    
+    let rank: Int
     let title: String
     let year: Int
     var ids: [String : AnyObject]
@@ -16,7 +18,8 @@ class Movie: NSObject {
     
     var posters: [Poster]
     
-    init(movieResponse: MovieResponse) {
+    init(rank: Int, movieResponse: MovieResponse) {
+        self.rank = rank
         self.title = movieResponse.title ?? ""
         self.year = movieResponse.year ?? 0
         self.ids = [String:AnyObject]()

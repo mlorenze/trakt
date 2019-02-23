@@ -88,9 +88,16 @@ class TraktInteractorImpl: TraktInteractor {
                 switch response.result {
                 case .success(let moviesResponse):
                     var movies: [Movie] = []
+                    var index: Int = 1
                     for movieResponse in moviesResponse {
+                        var rank: Int = 0
                         
-                        movies.append(Movie(movieResponse: movieResponse))
+                        if let pageNumberStr = response.response?.allHeaderFields["x-pagination-page"] as? String, let pageNumber = Int(pageNumberStr) {
+                            rank = ((pageNumber - 1) * UISettings.maxCells) + index
+                        }
+                        index += 1
+                        
+                        movies.append(Movie(rank: rank, movieResponse: movieResponse))
                         
                     }
                     DispatchQueue.main.async {

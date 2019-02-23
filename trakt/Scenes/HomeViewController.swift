@@ -11,13 +11,9 @@ import SwiftyUserDefaults
 import BoltsSwift
 import SVProgressHUD
 
-enum FetchingPageAction {
-    case previous, next, actual
-}
-
 class HomeViewController: UIViewController {
 
-    @IBOutlet weak var refreshButton: UIButton!
+    @IBOutlet weak var popularMoviesLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     
     var moviesTableViewHandler: MoviesTableViewHandler!
@@ -31,6 +27,7 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         
         self.title = "Home"
+        self.popularMoviesLabel.text = "Popular Movies"
         
         self.moviesTableViewHandler = MoviesTableViewHandler(self.tableView, paginationDelegate: self)
     }
@@ -54,7 +51,7 @@ class HomeViewController: UIViewController {
                 // Something went wrong, try again
                 TraktAPIManager.sharedInstance.startOAuth2Login()
             } else {
-                self.fetchItems(fetchingAction: .actual, completion: {
+                self.fetchMovies(pagingAction: .actual, completion: {
                     self.isFetching = false
                 })
             }
@@ -64,7 +61,7 @@ class HomeViewController: UIViewController {
             TraktAPIManager.sharedInstance.startOAuth2Login()
 
         }  else {
-            self.fetchItems(fetchingAction: .actual, completion: {
+            self.fetchMovies(pagingAction: .actual, completion: {
                 self.isFetching = false
             })
         }
@@ -80,14 +77,7 @@ class HomeViewController: UIViewController {
         
     }
     
-    @IBAction func refreshClick(_ sender: Any) {
-//        self.refreshButton.isUserInteractionEnabled = false
-//        self.fetchItems {
-//            self.refreshButton.isUserInteractionEnabled = true
-//        }
-    }
-    
-    private func fetchItems(fetchingAction: FetchingPageAction, completion:  @escaping () -> Void) {
+    private func fetchMovies(pagingAction: PagingAction, completion:  @escaping () -> Void) {
         SVProgressHUD.show()
         self.isFetching = true
         print("FETCH MOVIES: is fetching page \(self.moviesTableViewHandler.getActualPage())")
@@ -96,12 +86,12 @@ class HomeViewController: UIViewController {
             if error != nil {
                 self.revokeToken()
                 completion()
-                print("FETCH MOVIES: finished fetching (with error)")
+                print(" FETCH MOVIES: finished fetching (with error)")
                 SVProgressHUD.dismiss()
                 return
             }
             
-            self.moviesTableViewHandler.setMovies(movies!, action: fetchingAction)
+            self.moviesTableViewHandler.setMovies(movies!, after: pagingAction)
             
             var tasks:[Task<TaskResult>] = []
             for movie in movies! {
@@ -117,7 +107,7 @@ class HomeViewController: UIViewController {
             Task.whenAll(tasks).continueWith { (_) -> Any? in
                 completion()
                 self.tableView.reloadData()
-                print("FETCH MOVIES: finished fetching (successfuly)")
+                print(" FETCH MOVIES: finished fetching (successfuly)")
                 SVProgressHUD.dismiss()
                 return nil
             }
@@ -128,19 +118,16 @@ class HomeViewController: UIViewController {
 extension HomeViewController: MoviesPaginationDelegate {
     
     func changeToNextPage(completion:  @escaping () -> Void) {
-        if !self.isFetching{
-            self.moviesTableViewHandler.updateActualPage(action: .next)
-            self.fetchItems(fetchingAction: .next, completion: {
-                self.isFetching = false
-                completion()
-            })
-        }
+        self.executeMoviesFetching(pagingAction: .next, completion: completion)
     }
     
     func changeToPreviousPage(completion:  @escaping () -> Void) {
+        self.executeMoviesFetching(pagingAction: .previous, completion: completion)
+    }
+    
+    private func executeMoviesFetching(pagingAction: PagingAction, completion:  @escaping () -> Void) {
         if !self.isFetching{
-            self.moviesTableViewHandler.updateActualPage(action: .previous)
-            self.fetchItems(fetchingAction: .previous, completion: {
+            self.fetchMovies(pagingAction: pagingAction, completion: {
                 self.isFetching = false
                 completion()
             })

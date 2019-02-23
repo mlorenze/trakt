@@ -13,6 +13,10 @@ protocol MoviesPaginationDelegate {
     func changeToPreviousPage(completion:  @escaping () -> Void)
 }
 
+enum PagingAction {
+    case previous, next, actual
+}
+
 class MoviesTableViewHandler: NSObject, UITableViewDelegate, UITableViewDataSource {
 
     private var tableView: UITableView
@@ -20,7 +24,7 @@ class MoviesTableViewHandler: NSObject, UITableViewDelegate, UITableViewDataSour
     private var paginationDelegate: MoviesPaginationDelegate!
     
     private var actualPage: Int = 1
-    private var canPaging: Bool = true
+    private var isPaging: Bool = false
     
     init(_ tableView: UITableView, paginationDelegate: MoviesPaginationDelegate) {
         self.movies = [Movie]()
@@ -33,8 +37,8 @@ class MoviesTableViewHandler: NSObject, UITableViewDelegate, UITableViewDataSour
         self.tableView.register(GenericTableViewCell.nib, forCellReuseIdentifier: GenericTableViewCell.reuseIdentifier)
     }
     
-    func setMovies(_ movies: [Movie], action: FetchingPageAction){
-        switch action {
+    func setMovies(_ movies: [Movie], after pagingAction: PagingAction){
+        switch pagingAction {
         case .actual:
             self.movies = movies
         case .previous:
@@ -60,7 +64,7 @@ class MoviesTableViewHandler: NSObject, UITableViewDelegate, UITableViewDataSour
         return self.actualPage
     }
     
-    func updateActualPage(action: FetchingPageAction) {
+    func updateActualPage(action: PagingAction) {
         switch action {
         case .actual:
             break
@@ -81,7 +85,7 @@ class MoviesTableViewHandler: NSObject, UITableViewDelegate, UITableViewDataSour
         
         let movie = self.movies[indexPath.row]
         
-        let movieCardView = MovieCardView.create(title: movie.title, year: movie.year, overview: movie.overview, posters: movie.posters)
+        let movieCardView = MovieCardView.create(rank: movie.rank, title: movie.title, year: movie.year, overview: movie.overview, posters: movie.posters)
         
         cell.addCardView(cardView: movieCardView)
         
@@ -89,7 +93,7 @@ class MoviesTableViewHandler: NSObject, UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UISettings.cellHeight.cgFloat
+        return UITableView.automaticDimension
     }
 
 }
@@ -102,33 +106,36 @@ extension MoviesTableViewHandler {
         }
         
         if (scrollView.contentOffset.y >= (scrollView.contentSize.height - scrollView.frame.size.height)) {
-            if !self.canPaging {
-                return
+            if self.canExecutePaging(action: .next) {
+                self.paginationDelegate.changeToNextPage(completion: {
+                    self.scrollToFirstRow()
+                    self.tableView.isScrollEnabled = true
+                })
             }
-            self.canPaging = false
-            self.tableView.isScrollEnabled = false
-            self.paginationDelegate.changeToNextPage(completion: {
-                //self.scrollToFirstRow()
-                self.tableView.isScrollEnabled = true
-            })
         }
         
         if (scrollView.contentOffset.y <= 0) && self.actualPage > 1 {
-            if !self.canPaging {
-                return
+            if self.canExecutePaging(action: .previous) {
+                self.paginationDelegate.changeToPreviousPage(completion: {
+                    self.scrollToLastRow()
+                    self.tableView.isScrollEnabled = true
+                })
             }
-            self.canPaging = false
-            self.tableView.isScrollEnabled = false
-            self.paginationDelegate.changeToPreviousPage(completion: {
-                //self.scrollToLastRow()
-                self.tableView.isScrollEnabled = true
-            })
         }
-        
+    }
+    
+    private func canExecutePaging(action: PagingAction) -> Bool {
+        if self.isPaging {
+            return false
+        }
+        self.isPaging = true
+        self.tableView.isScrollEnabled = false
+        self.updateActualPage(action: action)
+        return true
     }
     
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        self.canPaging = true
+        self.isPaging = false
     }
     
     private func scrollToFirstRow() {
