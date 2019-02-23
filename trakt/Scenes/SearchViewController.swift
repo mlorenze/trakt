@@ -77,17 +77,12 @@ extension SearchViewController: UISearchBarDelegate {
 
     func searchBar(_ searchBar: UISearchBar, textDidChange textSearched: String) {
         SVProgressHUD.dismiss()
-        if textSearched.count >= 1 {
-            self.query = textSearched
-            self.moviesTableViewHandler.resetActualPage()
-            self.searchMovies(pagingAction: .actual) { (fetchingMessage) in
-                print(fetchingMessage)
-                self.isSearching = false
-            }
-        }else {
-            self.query = ""
-            self.moviesTableViewHandler.resetActualPage()
-            self.moviesTableViewHandler.reloadData()
+        self.query = textSearched
+        self.moviesTableViewHandler.resetActualPage()
+        self.moviesTableViewHandler.reloadData()
+        self.searchMovies(pagingAction: .actual) { (fetchingMessage) in
+            print(fetchingMessage)
+            self.isSearching = false
         }
     }
 }
