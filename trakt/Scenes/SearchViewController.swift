@@ -80,9 +80,11 @@ extension SearchViewController: UISearchBarDelegate {
         self.query = textSearched
         self.moviesTableViewHandler.resetActualPage()
         self.moviesTableViewHandler.reloadData()
-        self.searchMovies(pagingAction: .actual) { (fetchingMessage) in
-            print(fetchingMessage)
-            self.isSearching = false
+        if !query.isEmpty {
+            self.searchMovies(pagingAction: .actual) { (fetchingMessage) in
+                print(fetchingMessage)
+                self.isSearching = false
+            }
         }
     }
 }
