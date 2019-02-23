@@ -51,7 +51,8 @@ class HomeViewController: UIViewController {
                 // Something went wrong, try again
                 TraktAPIManager.sharedInstance.startOAuth2Login()
             } else {
-                self.fetchMovies(pagingAction: .actual, completion: {
+                self.fetchMovies(pagingAction: .actual, completion: { fetchingMessage in
+                    print(fetchingMessage)
                     self.isFetching = false
                 })
             }
@@ -61,7 +62,8 @@ class HomeViewController: UIViewController {
             TraktAPIManager.sharedInstance.startOAuth2Login()
 
         }  else {
-            self.fetchMovies(pagingAction: .actual, completion: {
+            self.fetchMovies(pagingAction: .actual, completion: { fetchingMessage in
+                print(fetchingMessage)
                 self.isFetching = false
             })
         }
@@ -77,7 +79,7 @@ class HomeViewController: UIViewController {
         
     }
     
-    private func fetchMovies(pagingAction: PagingAction, completion:  @escaping () -> Void) {
+    private func fetchMovies(pagingAction: PagingAction, completion:  @escaping (_ fetchingMessage: String) -> Void) {
         SVProgressHUD.show()
         self.isFetching = true
         print("FETCH MOVIES: is fetching page \(self.moviesTableViewHandler.getActualPage())")
@@ -85,8 +87,7 @@ class HomeViewController: UIViewController {
         self.traktInteractor.getPopularMovies(page: self.moviesTableViewHandler.getActualPage()) { (movies, error) in
             if error != nil {
                 self.revokeToken()
-                completion()
-                print(" FETCH MOVIES: finished fetching (with error)")
+                completion(" FETCH MOVIES: finished fetching (with error)")
                 SVProgressHUD.dismiss()
                 return
             }
@@ -105,9 +106,8 @@ class HomeViewController: UIViewController {
                 )
             }
             Task.whenAll(tasks).continueWith { (_) -> Any? in
-                completion()
-                self.tableView.reloadData()
-                print(" FETCH MOVIES: finished fetching (successfuly)")
+                self.moviesTableViewHandler.reloadData()
+                completion(" FETCH MOVIES: finished fetching (successfuly)")
                 SVProgressHUD.dismiss()
                 return nil
             }
@@ -127,7 +127,8 @@ extension HomeViewController: MoviesPaginationDelegate {
     
     private func executeMoviesFetching(pagingAction: PagingAction, completion:  @escaping () -> Void) {
         if !self.isFetching{
-            self.fetchMovies(pagingAction: pagingAction, completion: {
+            self.fetchMovies(pagingAction: pagingAction, completion: { fetchingMessage in
+                print(fetchingMessage)
                 self.isFetching = false
                 completion()
             })
