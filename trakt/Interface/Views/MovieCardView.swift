@@ -20,15 +20,25 @@ class MovieCardView: UIView {
     @IBOutlet weak var pictureHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var overviewHeightConstraint: NSLayoutConstraint!
 
-    static func create(rank: Int, title: String, year: Int, overview: String, posters: [Poster]) -> MovieCardView {
-        
+    static func create(rank: Int, title: String?, year: Int?, overview: String?, posters: [Poster]) -> MovieCardView {
+        let view = MovieCardView.commonInit(title: title, year: year, overview: overview, posters: posters)
+        view.titleLabel.text = String(format: "%d - %@", rank, title ?? "")
+        return view
+    }
+    
+    static func create(title: String?, year: Int?, overview: String?, posters: [Poster]) -> MovieCardView {
+        let view = MovieCardView.commonInit(title: title, year: year, overview: overview, posters: posters)
+        view.titleLabel.text = title
+        return view
+    }
+
+    private static func commonInit(title: String?, year: Int?, overview: String?, posters: [Poster]) -> MovieCardView {
         let view = nib.instantiate(withOwner: nil, options: nil).first as! MovieCardView
         
         view.autoresizingMask = [.flexibleHeight, .flexibleWidth]
         view.layer.masksToBounds = true
         
-        view.titleLabel.text = String(format: "%d - %@", rank, title)
-        view.yearLabel.text = year.string
+        view.yearLabel.text = year?.string
         view.overviewTextView.text = overview
         view.overviewTextView.sizeToFit()
         view.overviewHeightConstraint.constant = view.overviewTextView.contentSize.height
@@ -50,8 +60,7 @@ class MovieCardView: UIView {
             view.pictureImageView.image = UIImage(named: "icSearch")
         }
         view.pictureImageView.contentMode = .scaleAspectFit
-
+        
         return view
     }
-
 }

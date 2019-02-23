@@ -17,6 +17,10 @@ enum PagingAction {
     case previous, next, actual
 }
 
+enum MoviesTableType {
+    case populars, searched
+}
+
 class MoviesTableViewHandler: NSObject, UITableViewDelegate, UITableViewDataSource {
 
     private var tableView: UITableView
@@ -26,10 +30,13 @@ class MoviesTableViewHandler: NSObject, UITableViewDelegate, UITableViewDataSour
     private var actualPage: Int = 1
     private var isPaging: Bool = false
     
-    init(_ tableView: UITableView, paginationDelegate: MoviesPaginationDelegate) {
+    private var type: MoviesTableType
+    
+    init(_ tableView: UITableView, paginationDelegate: MoviesPaginationDelegate, type: MoviesTableType) {
         self.movies = [Movie]()
         self.tableView = tableView
         self.paginationDelegate = paginationDelegate
+        self.type = type
         super.init()
         self.tableView.delegate = self
         self.tableView.dataSource = self
@@ -75,6 +82,13 @@ class MoviesTableViewHandler: NSObject, UITableViewDelegate, UITableViewDataSour
         }
     }
     
+    func resetActualPage() {
+        self.actualPage = 1
+        self.movies = [Movie]()
+        self.isPaging = false
+        self.tableView.isScrollEnabled = true
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.movies.count
     }
@@ -85,7 +99,20 @@ class MoviesTableViewHandler: NSObject, UITableViewDelegate, UITableViewDataSour
         
         let movie = self.movies[indexPath.row]
         
-        let movieCardView = MovieCardView.create(rank: movie.rank, title: movie.title, year: movie.year, overview: movie.overview, posters: movie.posters)
+        var movieCardView: MovieCardView!
+        switch self.type {
+        case .populars:
+            movieCardView = MovieCardView.create(rank: movie.rank!,
+                                                 title: movie.title,
+                                                 year: movie.year,
+                                                 overview: movie.overview,
+                                                 posters: movie.posters)
+        case .searched:
+            movieCardView = MovieCardView.create(title: movie.title,
+                                                 year: movie.year,
+                                                 overview: movie.overview,
+                                                 posters: movie.posters)
+        }
         
         cell.addCardView(cardView: movieCardView)
         

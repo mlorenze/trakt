@@ -22,14 +22,13 @@ class HomeViewController: UIViewController {
     
     private var isFetching: Bool = false
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.title = "Home"
         self.popularMoviesLabel.text = "Popular Movies"
         
-        self.moviesTableViewHandler = MoviesTableViewHandler(self.tableView, paginationDelegate: self)
+        self.moviesTableViewHandler = MoviesTableViewHandler(self.tableView, paginationDelegate: self, type: .populars)
     }
     
     override func viewWillAppear(_ animated: Bool) {

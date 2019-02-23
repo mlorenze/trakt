@@ -15,6 +15,7 @@ protocol TraktInteractor {
     func getToken(refreshToken: String, completion:  @escaping (Token?, Error?) -> Void)
     func revokeToken(token: String, completion:  @escaping (Bool) -> Void) 
     func getPopularMovies(page: Int, completion:  @escaping ([Movie]?, Error?) -> Void)
+    func searchMovies(query: String, page: Int, completion:  @escaping ([Movie]?, Error?) -> Void)
     func getMovieImages(movieId: String, completion:  @escaping ([Poster]?, Error?) -> Void) -> Task<TaskResult>
 }
 
@@ -114,6 +115,29 @@ class TraktInteractorImpl: TraktInteractor {
         }
     }
     
+    func searchMovies(query: String, page: Int, completion:  @escaping ([Movie]?, Error?) -> Void) {
+        self.dispatchQueue.async {
+            self.client.getSearch(type: Search.movie, query: query, page: page) { (response) in
+                switch response.result {
+                case .success(let itemsResponse):
+                    var movies: [Movie] = []
+                    for itemResponse in itemsResponse {
+                        movies.append(Movie(movieResponse: itemResponse.movie!))
+                    }
+                    DispatchQueue.main.async {
+                        completion(movies, nil)
+                    }
+                    
+                case .failure(let error):
+                    print(error)
+                    DispatchQueue.main.async {
+                        completion(nil, error)
+                    }
+                }
+            }
+        }
+    }
+    
     func getMovieImages(movieId: String, completion:  @escaping ([Poster]?, Error?) -> Void) -> Task<TaskResult>  {
         let taskCompletionSource = TaskCompletionSource<TaskResult>()
         self.dispatchQueue.async {
@@ -125,7 +149,7 @@ class TraktInteractorImpl: TraktInteractor {
                         return Poster(posterResponse: posterResponse)
                     })
                     DispatchQueue.main.async {
-                        completion(posters, nil)
+                        completion(posters != nil ? posters : [Poster](), nil)
                     }
                     taskCompletionSource.set(result: TaskResult(result: MoviesDataStateResult.Success))
                 case .failure(let error):

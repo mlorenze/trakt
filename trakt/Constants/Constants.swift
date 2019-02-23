@@ -45,7 +45,6 @@ struct K {
     struct Token {
         static let loadingOAuthToken = "loadingOAuthToken"
     }
-
 }
 
 struct ServerConfig {
@@ -82,3 +81,22 @@ struct UISettings {
     static let cellHeight: Float = 300
     static let maxCells: Int = 10
 }
+
+struct Search {
+    
+    static let movie: String = "movie"
+    static let show: String = "show"
+    static let episode: String = "episode"
+    static let person: String = "person"
+    static let list: String = "list"
+    
+    struct MovieField {
+        static let title: String = "title"
+        static let tagline: String = "tagline"
+        static let overview: String = "overview"
+        static let people: String = "people"
+        static let translations: String = "translations"
+        static let aliases: String = "aliases"
+    }
+}
+

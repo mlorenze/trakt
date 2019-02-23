@@ -11,6 +11,8 @@ import Alamofire
 
 class TraktClient {
     
+    var actualSearchRequest: DataRequest!
+    
     @discardableResult
     private func performRequest<T:Decodable>(route: TraktEndPoint, decoder: JSONDecoder = JSONDecoder(), completion:@escaping (DataResponse<T>)->Void) -> DataRequest {
         decoder.dateDecodingStrategy = .formatted(DateFormatter.iso8601)
@@ -31,6 +33,13 @@ class TraktClient {
     
     func getPopularMovies(page: Int, completion: @escaping(DataResponse<[MovieResponse]>) -> Void) {
         performRequest(route: TraktEndPoint.getPopularMovies(page: page), completion: completion)
+    }
+    
+    func getSearch(type: String,  query: String, page: Int, completion: @escaping(DataResponse<[ItemSearchedResponse]>) -> Void) {
+        if self.actualSearchRequest != nil {
+            self.actualSearchRequest.cancel()
+        }
+        self.actualSearchRequest = performRequest(route: TraktEndPoint.search(type: type, query: query, page: page), completion: completion)
     }
     
     func getMovieImages(movieId: String, completion: @escaping(DataResponse<ImagesResponse>) -> Void) {

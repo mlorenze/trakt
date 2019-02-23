@@ -10,21 +10,30 @@ import Foundation
 
 class Movie: NSObject {
     
-    let rank: Int
-    let title: String
-    let year: Int
+    var rank: Int? = 0
+    let title: String?
+    let year: Int?
     var ids: [String : AnyObject]
-    let overview: String
+    let overview: String?
     
     var posters: [Poster]
     
     init(rank: Int, movieResponse: MovieResponse) {
         self.rank = rank
-        self.title = movieResponse.title ?? ""
-        self.year = movieResponse.year ?? 0
+        self.title = movieResponse.title
+        self.year = movieResponse.year
         self.ids = [String:AnyObject]()
         self.ids["tmdb"] = movieResponse.ids?.tmdb as AnyObject
-        self.overview = movieResponse.overview ?? ""
+        self.overview = movieResponse.overview
+        self.posters = [Poster]()
+    }
+    
+    init(movieResponse: MovieResponse) {
+        self.title = movieResponse.title
+        self.year = movieResponse.year
+        self.ids = [String:AnyObject]()
+        self.ids["tmdb"] = movieResponse.ids?.tmdb as AnyObject
+        self.overview = movieResponse.overview
         self.posters = [Poster]()
     }
     

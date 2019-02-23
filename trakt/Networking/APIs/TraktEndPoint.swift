@@ -14,18 +14,22 @@ import SwifterSwift
 
 enum TraktEndPoint: APIConfiguration {
     
+    // Trakt.tv API
     case authorize()
     case getToken(tokenBody: TokenBody)
     case revokeToken(revokeTokenBody: RevokeTokenBody)
     case getPopularMovies(page: Int)
+    case search(type: String, query: String, page: Int)
     
+    // Tmbd API
     case getMovieImages(movieId: String)
     
     var method: HTTPMethod {
         switch self {
         case .authorize,
              .getPopularMovies,
-             .getMovieImages:
+             .getMovieImages,
+             .search:
             return .get
         case .getToken,
              .revokeToken:
@@ -43,6 +47,8 @@ enum TraktEndPoint: APIConfiguration {
             return "/oauth/revoke"
         case .getPopularMovies(_):
             return "/movies/popular"
+        case .search(let type, _, _):
+            return "/search/\(type)"
         case .getMovieImages(let movieId):
             return "/movie/\(movieId)/images"
         }
@@ -64,6 +70,11 @@ enum TraktEndPoint: APIConfiguration {
                     K.AuthorizeAppParameters.Key.redirectURI: K.AuthorizeAppParameters.Value.redirectURI]
         case .getPopularMovies(let page):
             return ["page": page.string,
+                    "limit": "\(UISettings.maxCells)",
+                    "extended": "full"]
+        case .search(_ , let query, let page):
+            return ["query": query,
+                    "page": page.string,
                     "limit": "\(UISettings.maxCells)",
                     "extended": "full"]
         case .getMovieImages:
