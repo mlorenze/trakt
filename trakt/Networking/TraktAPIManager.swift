@@ -84,7 +84,6 @@ class TraktAPIManager {
                 }
             }
         }else{
-            // no code in URL that we launched with
             Defaults.set(false, forKey: K.Token.loadingOAuthToken)
         }
     }

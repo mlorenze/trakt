@@ -121,8 +121,6 @@
 				E114FC8E221BB39F002CEDA7 /* Views */,
 				E114FC87221BAE66002CEDA7 /* Cells */,
 				E1A640FC220F47D300C492C5 /* Main.storyboard */,
-				E114FC8C221BB200002CEDA7 /* ShadowView.swift */,
-				E101AB65221F1E4600A48B0F /* MoviesTableViewHandler.swift */,
 			);
 			path = Interface;
 			sourceTree = "<group>";
@@ -139,6 +137,7 @@
 		E114FC8E221BB39F002CEDA7 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				E114FC8C221BB200002CEDA7 /* ShadowView.swift */,
 				E114FC8F221BB3B5002CEDA7 /* MovieCardView.swift */,
 				E114FC91221BB566002CEDA7 /* MovieCardView.xib */,
 			);
@@ -175,6 +174,7 @@
 			isa = PBXGroup;
 			children = (
 				E114FC86221BAE51002CEDA7 /* Interface */,
+				E1C57B922224582F0065242A /* Handlers */,
 				E1A6412F220F71F200C492C5 /* Scenes */,
 				E1A64124220F6BE600C492C5 /* Model */,
 				E1A64119220F519200C492C5 /* Extensions */,
@@ -269,6 +269,14 @@
 				E1A64130220F720C00C492C5 /* SearchViewController.swift */,
 			);
 			path = Scenes;
+			sourceTree = "<group>";
+		};
+		E1C57B922224582F0065242A /* Handlers */ = {
+			isa = PBXGroup;
+			children = (
+				E101AB65221F1E4600A48B0F /* MoviesTableViewHandler.swift */,
+			);
+			path = Handlers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
