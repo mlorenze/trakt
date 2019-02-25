@@ -129,7 +129,7 @@ class TraktInteractorImpl: TraktInteractor {
                     }
                     
                 case .failure(let error):
-                    print(error)
+                   // print(error)
                     DispatchQueue.main.async {
                         completion(nil, error)
                     }
