@@ -42,6 +42,7 @@ class MoviesTableViewHandler: NSObject, UITableViewDelegate, UITableViewDataSour
         self.tableView.dataSource = self
         
         self.tableView.register(GenericTableViewCell.nib, forCellReuseIdentifier: GenericTableViewCell.reuseIdentifier)
+        self.tableView.estimatedRowHeight = UITableView.automaticDimension
     }
     
     func setMovies(_ movies: [Movie], after pagingAction: PagingAction){
@@ -65,6 +66,7 @@ class MoviesTableViewHandler: NSObject, UITableViewDelegate, UITableViewDataSour
     
     func reloadData() {
         self.tableView.reloadData()
+        self.tableView.layoutIfNeeded()
     }
     
     func getActualPage() -> Int {
@@ -135,7 +137,7 @@ extension MoviesTableViewHandler {
         if (scrollView.contentOffset.y >= (scrollView.contentSize.height - scrollView.frame.size.height)) {
             if self.canExecutePaging(action: .next) {
                 self.paginationDelegate.changeToNextPage(completion: {
-                    self.scrollToFirstRow()
+                    self.tableView.contentOffset =  CGPoint(x: 0, y: 0)
                     self.tableView.isScrollEnabled = true
                 })
             }
@@ -144,7 +146,7 @@ extension MoviesTableViewHandler {
         if (scrollView.contentOffset.y <= 0) && self.actualPage > 1 {
             if self.canExecutePaging(action: .previous) {
                 self.paginationDelegate.changeToPreviousPage(completion: {
-                    self.scrollToLastRow()
+                    self.tableView.contentOffset =  CGPoint(x: 0, y: self.tableView.contentSize.height - self.tableView.height)
                     self.tableView.isScrollEnabled = true
                 })
             }
@@ -163,16 +165,6 @@ extension MoviesTableViewHandler {
     
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         self.isPaging = false
-    }
-    
-    private func scrollToFirstRow() {
-        let indexPath = IndexPath(row: 0, section: 0)
-        self.tableView.scrollToRow(at: indexPath, at: .top, animated: true)
-    }
-    
-    private func scrollToLastRow() {
-        let indexPath = IndexPath(row: UISettings.maxCells - 1, section: 0)
-        self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
     }
 
 }
