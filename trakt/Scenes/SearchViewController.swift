@@ -65,7 +65,7 @@ class SearchViewController: UIViewController {
             }
             Task.whenAll(tasks).continueWith { (_) -> Any? in
                 self.moviesTableViewHandler.reloadData()
-                completion(" FETCH MOVIES: finished fetching (successfuly)")
+                completion(" FETCH \(movies?.count ?? 0) MOVIES: finished fetching (successfuly)")
                 SVProgressHUD.dismiss()
                 return nil
             }
