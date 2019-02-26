@@ -49,6 +49,10 @@ class HomeViewController: UIViewController, UIGestureRecognizerDelegate {
         let bottomViewTap = UITapGestureRecognizer(target: self, action: #selector(self.handleBottomViewTap(_:)))
         bottomViewTap.delegate = self
         self.bottomView.addGestureRecognizer(bottomViewTap)
+        
+        if (!Defaults.bool(forKey: K.Token.loadingOAuthToken)) {
+            loadInitialData()
+        }
     }
     
     private func updateLoadersUI(view: UIView){
@@ -75,16 +79,6 @@ class HomeViewController: UIViewController, UIGestureRecognizerDelegate {
     @objc func handleBottomViewTap(_ sender: UITapGestureRecognizer) {
         self.moviesTableViewHandler.setMovies(self.lastMoviesFetched, after: .next)
         self.updateTapView(heightConstraint: self.bottomViewHeightConstraint, disable: true)
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        self.lastMoviesFetched = [Movie]()
-        
-        if (!Defaults.bool(forKey: K.Token.loadingOAuthToken)) {
-            loadInitialData()
-        }
     }
 
     private func loadInitialData() {
@@ -126,7 +120,7 @@ class HomeViewController: UIViewController, UIGestureRecognizerDelegate {
     private func fetchMovies(page: Int, completion:  @escaping (_ movies: [Movie], _ fetchingMessage: String) -> Void) {
         SVProgressHUD.show()
         self.isFetching = true
-        print("FETCH MOVIES: is fetching page \(self.moviesTableViewHandler.getActualPage())")
+        print("FETCH MOVIES: is fetching page \(page)")
 
         self.traktInteractor.getPopularMovies(page: page) { (movies, error) in
             if error != nil {

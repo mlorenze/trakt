@@ -49,23 +49,16 @@ class MoviesTableViewHandler: NSObject, UITableViewDelegate, UITableViewDataSour
     }
     
     func setMovies(_ movies: [Movie], after pagingAction: PagingAction){
+        self.updateActualPage(action: pagingAction)
+        self.movies = movies
+        self.reloadData()
+        
         switch pagingAction {
         case .actual:
-            self.movies = movies
-            self.reloadData()
+            self.tableView.contentOffset = CGPoint(x: 0, y: 0)
         case .previous:
-            self.updateActualPage(action: .previous)
-            self.movies.removeLast(UISettings.maxCells)
-            self.movies.insert(contentsOf: movies, at: 0)
-            self.reloadData()
-            self.tableView.contentOffset =  CGPoint(x: 0, y: self.tableView.contentSize.height - self.tableViewContentSizeHeight)
+            self.tableView.contentOffset = CGPoint(x: 0, y: self.tableView.contentSize.height - self.tableViewContentSizeHeight)
         case .next:
-            self.updateActualPage(action: .next)
-            if self.actualPage > 1 {
-                self.movies.removeFirst(UISettings.maxCells)
-            }
-            self.movies.append(contentsOf: movies)
-            self.reloadData()
             self.tableView.contentOffset = CGPoint(x: 0, y: 0)
         }
     }

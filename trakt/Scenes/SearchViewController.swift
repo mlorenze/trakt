@@ -88,7 +88,7 @@ class SearchViewController: UIViewController, UIGestureRecognizerDelegate {
     private func searchMovies(page: Int, completion:  @escaping (_ movies: [Movie], _ fetchingMessage: String) -> Void) {
         SVProgressHUD.show()
         self.isSearching = true
-        print("FETCH MOVIES: is fetching page \(self.moviesTableViewHandler.getActualPage())")
+        print("FETCH MOVIES: is fetching page \(page)")
         
         self.traktInteractor.searchMovies(query: self.query, page: page) { (movies, error) in
             if error != nil {
@@ -109,7 +109,6 @@ class SearchViewController: UIViewController, UIGestureRecognizerDelegate {
                 )
             }
             Task.whenAll(tasks).continueWith { (_) -> Any? in
-                self.moviesTableViewHandler.reloadData()
                 completion(movies!, " FETCH \(movies?.count ?? 0) MOVIES: finished fetching (successfuly)")
                 SVProgressHUD.dismiss()
                 return nil
@@ -124,14 +123,15 @@ extension SearchViewController: UISearchBarDelegate {
         SVProgressHUD.dismiss()
         self.query = textSearched
         self.moviesTableViewHandler.resetActualPage()
-        self.moviesTableViewHandler.reloadData()
         if !query.isEmpty {
-            self.searchMovies(page: 1) { movies, fetchingMessage  in
+            self.searchMovies(page: self.moviesTableViewHandler.getActualPage()) { movies, fetchingMessage  in
                 print(fetchingMessage)
-                self.lastMoviesSearched = movies
                 self.moviesTableViewHandler.setMovies(movies, after: .actual)
                 self.isSearching = false
             }
+        }else{
+            self.moviesTableViewHandler.setMovies([Movie](), after: .actual)
+            self.isSearching = false
         }
     }
 }
