@@ -9,8 +9,9 @@
 import UIKit
 
 protocol MoviesPaginationDelegate {
-    func changeToNextPage(completion:  @escaping () -> Void)
-    func changeToPreviousPage(completion:  @escaping () -> Void)
+    func fetchingForNextPage(nextPage: Int, completion:  @escaping () -> Void)
+    func fetchingForPreviousPage(previousPage: Int, completion:  @escaping () -> Void)
+    func disableLastFetching()
 }
 
 enum PagingAction {
@@ -31,10 +32,12 @@ class MoviesTableViewHandler: NSObject, UITableViewDelegate, UITableViewDataSour
     private var isPaging: Bool = false
     
     private var type: MoviesTableType
+    private var tableViewContentSizeHeight: CGFloat!
     
     init(_ tableView: UITableView, paginationDelegate: MoviesPaginationDelegate, type: MoviesTableType) {
         self.movies = [Movie]()
         self.tableView = tableView
+        self.tableViewContentSizeHeight = tableView.height
         self.paginationDelegate = paginationDelegate
         self.type = type
         super.init()
@@ -49,14 +52,21 @@ class MoviesTableViewHandler: NSObject, UITableViewDelegate, UITableViewDataSour
         switch pagingAction {
         case .actual:
             self.movies = movies
+            self.reloadData()
         case .previous:
+            self.updateActualPage(action: .previous)
             self.movies.removeLast(UISettings.maxCells)
             self.movies.insert(contentsOf: movies, at: 0)
+            self.reloadData()
+            self.tableView.contentOffset =  CGPoint(x: 0, y: self.tableView.contentSize.height - self.tableViewContentSizeHeight)
         case .next:
+            self.updateActualPage(action: .next)
             if self.actualPage > 1 {
                 self.movies.removeFirst(UISettings.maxCells)
             }
             self.movies.append(contentsOf: movies)
+            self.reloadData()
+            self.tableView.contentOffset = CGPoint(x: 0, y: 0)
         }
     }
     
@@ -136,8 +146,8 @@ extension MoviesTableViewHandler {
         
         if (scrollView.contentOffset.y >= (scrollView.contentSize.height - scrollView.frame.size.height)) {
             if self.canExecutePaging(action: .next) {
-                self.paginationDelegate.changeToNextPage(completion: {
-                    self.tableView.contentOffset =  CGPoint(x: 0, y: 0)
+                let nextPage = self.getActualPage() + 1
+                self.paginationDelegate.fetchingForNextPage(nextPage: nextPage, completion: {
                     self.tableView.isScrollEnabled = true
                 })
             }
@@ -145,10 +155,16 @@ extension MoviesTableViewHandler {
         
         if (scrollView.contentOffset.y <= 0) && self.actualPage > 1 {
             if self.canExecutePaging(action: .previous) {
-                self.paginationDelegate.changeToPreviousPage(completion: {
-                    self.tableView.contentOffset =  CGPoint(x: 0, y: self.tableView.contentSize.height - self.tableView.height)
+                let previousPage = self.getActualPage() - 1
+                self.paginationDelegate.fetchingForPreviousPage(previousPage: previousPage, completion: {
                     self.tableView.isScrollEnabled = true
                 })
+            }
+        }
+        
+        if (scrollView.contentOffset.y > 0 && scrollView.contentOffset.y < (scrollView.contentSize.height - scrollView.frame.size.height)){
+            if !self.isPaging {
+                self.paginationDelegate.disableLastFetching()
             }
         }
     }
@@ -159,7 +175,6 @@ extension MoviesTableViewHandler {
         }
         self.isPaging = true
         self.tableView.isScrollEnabled = false
-        self.updateActualPage(action: action)
         return true
     }
     

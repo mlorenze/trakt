@@ -11,16 +11,22 @@ import SwiftyUserDefaults
 import BoltsSwift
 import SVProgressHUD
 
-class HomeViewController: UIViewController {
+class HomeViewController: UIViewController, UIGestureRecognizerDelegate {
 
     @IBOutlet weak var popularMoviesLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
+    
+    @IBOutlet weak var topView: UIView!
+    @IBOutlet weak var bottomView: UIView!
+    @IBOutlet weak var topViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var bottomViewHeightConstraint: NSLayoutConstraint!
     
     var moviesTableViewHandler: MoviesTableViewHandler!
     
     private let traktInteractor: TraktInteractor! = TraktInteractorImpl()
     
     private var isFetching: Bool = false
+    private var lastMoviesFetched: [Movie] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,10 +35,52 @@ class HomeViewController: UIViewController {
         self.popularMoviesLabel.text = "Popular Movies"
         
         self.moviesTableViewHandler = MoviesTableViewHandler(self.tableView, paginationDelegate: self, type: .populars)
+        
+        self.updateLoadersUI(view: self.topView)
+        self.updateLoadersUI(view: self.bottomView)
+        
+        self.topViewHeightConstraint.constant = 0
+        self.bottomViewHeightConstraint.constant = 0
+        
+        let topViewTap = UITapGestureRecognizer(target: self, action: #selector(self.handleTopViewTap(_:)))
+        topViewTap.delegate = self
+        self.topView.addGestureRecognizer(topViewTap)
+
+        let bottomViewTap = UITapGestureRecognizer(target: self, action: #selector(self.handleBottomViewTap(_:)))
+        bottomViewTap.delegate = self
+        self.bottomView.addGestureRecognizer(bottomViewTap)
+    }
+    
+    private func updateLoadersUI(view: UIView){
+        let loaderView = LoaderView.create(arrow: view == self.topView ? .up : .down,
+                                           title: view == self.topView ? "Previous movies" : "Next movies")
+        loaderView.frame = view.bounds
+        view.addSubview(loaderView)
+    }
+    
+    private func updateTapView(heightConstraint: NSLayoutConstraint, disable: Bool) {
+        self.view.layoutIfNeeded()
+        heightConstraint.constant = disable ? 0 : 50
+        
+        UIView.animate(withDuration: 0.2, animations: {
+            self.view.layoutIfNeeded()
+        })
+    }
+    
+    @objc func handleTopViewTap(_ sender: UITapGestureRecognizer) {
+        self.moviesTableViewHandler.setMovies(self.lastMoviesFetched, after: .previous)
+        self.updateTapView(heightConstraint: self.topViewHeightConstraint, disable: true)
+    }
+    
+    @objc func handleBottomViewTap(_ sender: UITapGestureRecognizer) {
+        self.moviesTableViewHandler.setMovies(self.lastMoviesFetched, after: .next)
+        self.updateTapView(heightConstraint: self.bottomViewHeightConstraint, disable: true)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        self.lastMoviesFetched = [Movie]()
         
         if (!Defaults.bool(forKey: K.Token.loadingOAuthToken)) {
             loadInitialData()
@@ -46,12 +94,11 @@ class HomeViewController: UIViewController {
             print("handlin stuff")
             if error != nil {
                 print(error as Any)
-                // TODO: handle error
-                // Something went wrong, try again
                 TraktAPIManager.sharedInstance.startOAuth2Login()
             } else {
-                self.fetchMovies(pagingAction: .actual, completion: { fetchingMessage in
+                self.fetchMovies(page: self.moviesTableViewHandler.getActualPage(), completion: { movies, fetchingMessage  in
                     print(fetchingMessage)
+                    self.moviesTableViewHandler.setMovies(movies, after: .actual)
                     self.isFetching = false
                 })
             }
@@ -59,39 +106,35 @@ class HomeViewController: UIViewController {
         
         if (!TraktAPIManager.sharedInstance.hasOAuthToken()) {
             TraktAPIManager.sharedInstance.startOAuth2Login()
-
-        }  else {
-            self.fetchMovies(pagingAction: .actual, completion: { fetchingMessage in
+        } else {
+            self.fetchMovies(page: self.moviesTableViewHandler.getActualPage(), completion: { movies, fetchingMessage in
                 print(fetchingMessage)
+                self.moviesTableViewHandler.setMovies(movies, after: .actual)
                 self.isFetching = false
             })
         }
     }
     
     private func revokeToken()  {
-        
         if let token = TraktAPIManager.sharedInstance.getOAuthToken() {
             self.traktInteractor.revokeToken(token: token) { (ok) in
                 TraktAPIManager.sharedInstance.revokeToken()
             }
         }
-        
     }
     
-    private func fetchMovies(pagingAction: PagingAction, completion:  @escaping (_ fetchingMessage: String) -> Void) {
+    private func fetchMovies(page: Int, completion:  @escaping (_ movies: [Movie], _ fetchingMessage: String) -> Void) {
         SVProgressHUD.show()
         self.isFetching = true
         print("FETCH MOVIES: is fetching page \(self.moviesTableViewHandler.getActualPage())")
 
-        self.traktInteractor.getPopularMovies(page: self.moviesTableViewHandler.getActualPage()) { (movies, error) in
+        self.traktInteractor.getPopularMovies(page: page) { (movies, error) in
             if error != nil {
                 self.revokeToken()
-                completion(" FETCH MOVIES: finished fetching (with error)")
+                completion([Movie](), " FETCH MOVIES: finished fetching (with error)")
                 SVProgressHUD.dismiss()
                 return
             }
-            
-            self.moviesTableViewHandler.setMovies(movies!, after: pagingAction)
             
             var tasks:[Task<TaskResult>] = []
             for movie in movies! {
@@ -105,8 +148,7 @@ class HomeViewController: UIViewController {
                 )
             }
             Task.whenAll(tasks).continueWith { (_) -> Any? in
-                self.moviesTableViewHandler.reloadData()
-                completion(" FETCH MOVIES: finished fetching (successfuly)")
+                completion(movies!, " FETCH MOVIES: finished fetching (successfuly)")
                 SVProgressHUD.dismiss()
                 return nil
             }
@@ -116,18 +158,38 @@ class HomeViewController: UIViewController {
 
 extension HomeViewController: MoviesPaginationDelegate {
     
-    func changeToNextPage(completion:  @escaping () -> Void) {
-        self.executeMoviesFetching(pagingAction: .next, completion: completion)
+    func disableLastFetching() {
+        if self.topViewHeightConstraint.constant > 0 {
+            self.updateTapView(heightConstraint: self.topViewHeightConstraint, disable: true)
+        }
+        if self.bottomViewHeightConstraint.constant > 0 {
+            self.updateTapView(heightConstraint: self.bottomViewHeightConstraint, disable: true)
+        }
     }
     
-    func changeToPreviousPage(completion:  @escaping () -> Void) {
-        self.executeMoviesFetching(pagingAction: .previous, completion: completion)
+    func fetchingForNextPage(nextPage: Int, completion:  @escaping () -> Void) {
+        self.executeMoviesFetching(page: nextPage, completion: {
+            if self.lastMoviesFetched.count > 0 {
+                self.updateTapView(heightConstraint: self.bottomViewHeightConstraint, disable: false)
+            }
+            completion()
+        })
     }
     
-    private func executeMoviesFetching(pagingAction: PagingAction, completion:  @escaping () -> Void) {
+    func fetchingForPreviousPage(previousPage: Int, completion:  @escaping () -> Void) {
+        self.executeMoviesFetching(page: previousPage, completion: {
+            if self.lastMoviesFetched.count > 0 {
+                self.updateTapView(heightConstraint: self.topViewHeightConstraint, disable: false)
+            }
+            completion()
+        })
+    }
+    
+    private func executeMoviesFetching(page: Int, completion:  @escaping () -> Void) {
         if !self.isFetching{
-            self.fetchMovies(pagingAction: pagingAction, completion: { fetchingMessage in
+            self.fetchMovies(page: page, completion: { movies, fetchingMessage in
                 print(fetchingMessage)
+                self.lastMoviesFetched = movies
                 self.isFetching = false
                 completion()
             })

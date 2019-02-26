@@ -13,6 +13,9 @@
 		E101AB66221F1E4600A48B0F /* MoviesTableViewHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E101AB65221F1E4600A48B0F /* MoviesTableViewHandler.swift */; };
 		E10897D32220A3DE001AAF48 /* Poster.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10897D22220A3DE001AAF48 /* Poster.swift */; };
 		E110DE7B2220CF9900B871B7 /* ItemSearchedResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E110DE7A2220CF9900B871B7 /* ItemSearchedResponse.swift */; };
+		E113FC5E2224D5F8004EBC71 /* UIColor+Trakt.swift in Sources */ = {isa = PBXBuildFile; fileRef = E113FC5D2224D5F8004EBC71 /* UIColor+Trakt.swift */; };
+		E113FC602224D6A0004EBC71 /* LoaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E113FC5F2224D6A0004EBC71 /* LoaderView.swift */; };
+		E113FC642224D6C2004EBC71 /* LoaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E113FC632224D6C2004EBC71 /* LoaderView.xib */; };
 		E114FC7F221B97FC002CEDA7 /* RevokeTokenBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = E114FC7E221B97FC002CEDA7 /* RevokeTokenBody.swift */; };
 		E114FC81221B9F58002CEDA7 /* MovieResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E114FC80221B9F58002CEDA7 /* MovieResponse.swift */; };
 		E114FC85221BA26D002CEDA7 /* IdsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E114FC84221BA26D002CEDA7 /* IdsResponse.swift */; };
@@ -52,6 +55,9 @@
 		E101AB65221F1E4600A48B0F /* MoviesTableViewHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesTableViewHandler.swift; sourceTree = "<group>"; };
 		E10897D22220A3DE001AAF48 /* Poster.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Poster.swift; sourceTree = "<group>"; };
 		E110DE7A2220CF9900B871B7 /* ItemSearchedResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemSearchedResponse.swift; sourceTree = "<group>"; };
+		E113FC5D2224D5F8004EBC71 /* UIColor+Trakt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Trakt.swift"; sourceTree = "<group>"; };
+		E113FC5F2224D6A0004EBC71 /* LoaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoaderView.swift; sourceTree = "<group>"; };
+		E113FC632224D6C2004EBC71 /* LoaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoaderView.xib; sourceTree = "<group>"; };
 		E114FC7E221B97FC002CEDA7 /* RevokeTokenBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RevokeTokenBody.swift; sourceTree = "<group>"; };
 		E114FC80221B9F58002CEDA7 /* MovieResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieResponse.swift; sourceTree = "<group>"; };
 		E114FC84221BA26D002CEDA7 /* IdsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdsResponse.swift; sourceTree = "<group>"; };
@@ -140,6 +146,8 @@
 				E114FC8C221BB200002CEDA7 /* ShadowView.swift */,
 				E114FC8F221BB3B5002CEDA7 /* MovieCardView.swift */,
 				E114FC91221BB566002CEDA7 /* MovieCardView.xib */,
+				E113FC5F2224D6A0004EBC71 /* LoaderView.swift */,
+				E113FC632224D6C2004EBC71 /* LoaderView.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -225,6 +233,7 @@
 			children = (
 				E1A6411A220F51A600C492C5 /* DefaultsKeys+Trakt.swift */,
 				E1A64122220F6B5300C492C5 /* DateFormatter+Trakt.swift */,
+				E113FC5D2224D5F8004EBC71 /* UIColor+Trakt.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -339,6 +348,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E113FC642224D6C2004EBC71 /* LoaderView.xib in Resources */,
 				E1A64103220F47D400C492C5 /* LaunchScreen.storyboard in Resources */,
 				E1A64100220F47D400C492C5 /* Assets.xcassets in Resources */,
 				E114FC92221BB566002CEDA7 /* MovieCardView.xib in Resources */,
@@ -415,6 +425,8 @@
 			files = (
 				E1A64135220F7FC700C492C5 /* EmptyResponse.swift in Sources */,
 				E1A6410D220F483B00C492C5 /* TraktEndPoint.swift in Sources */,
+				E113FC5E2224D5F8004EBC71 /* UIColor+Trakt.swift in Sources */,
+				E113FC602224D6A0004EBC71 /* LoaderView.swift in Sources */,
 				E1A6410F220F485000C492C5 /* TraktClient.swift in Sources */,
 				E1A64126220F6C2700C492C5 /* Movie.swift in Sources */,
 				E10897D32220A3DE001AAF48 /* Poster.swift in Sources */,
