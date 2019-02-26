@@ -16,6 +16,7 @@
 		E113FC5E2224D5F8004EBC71 /* UIColor+Trakt.swift in Sources */ = {isa = PBXBuildFile; fileRef = E113FC5D2224D5F8004EBC71 /* UIColor+Trakt.swift */; };
 		E113FC602224D6A0004EBC71 /* LoaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E113FC5F2224D6A0004EBC71 /* LoaderView.swift */; };
 		E113FC642224D6C2004EBC71 /* LoaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E113FC632224D6C2004EBC71 /* LoaderView.xib */; };
+		E113FC682224EC88004EBC71 /* UIViewController+Trakt.swift in Sources */ = {isa = PBXBuildFile; fileRef = E113FC672224EC88004EBC71 /* UIViewController+Trakt.swift */; };
 		E114FC7F221B97FC002CEDA7 /* RevokeTokenBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = E114FC7E221B97FC002CEDA7 /* RevokeTokenBody.swift */; };
 		E114FC81221B9F58002CEDA7 /* MovieResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E114FC80221B9F58002CEDA7 /* MovieResponse.swift */; };
 		E114FC85221BA26D002CEDA7 /* IdsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E114FC84221BA26D002CEDA7 /* IdsResponse.swift */; };
@@ -58,6 +59,7 @@
 		E113FC5D2224D5F8004EBC71 /* UIColor+Trakt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Trakt.swift"; sourceTree = "<group>"; };
 		E113FC5F2224D6A0004EBC71 /* LoaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoaderView.swift; sourceTree = "<group>"; };
 		E113FC632224D6C2004EBC71 /* LoaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoaderView.xib; sourceTree = "<group>"; };
+		E113FC672224EC88004EBC71 /* UIViewController+Trakt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Trakt.swift"; sourceTree = "<group>"; };
 		E114FC7E221B97FC002CEDA7 /* RevokeTokenBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RevokeTokenBody.swift; sourceTree = "<group>"; };
 		E114FC80221B9F58002CEDA7 /* MovieResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieResponse.swift; sourceTree = "<group>"; };
 		E114FC84221BA26D002CEDA7 /* IdsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdsResponse.swift; sourceTree = "<group>"; };
@@ -234,6 +236,7 @@
 				E1A6411A220F51A600C492C5 /* DefaultsKeys+Trakt.swift */,
 				E1A64122220F6B5300C492C5 /* DateFormatter+Trakt.swift */,
 				E113FC5D2224D5F8004EBC71 /* UIColor+Trakt.swift */,
+				E113FC672224EC88004EBC71 /* UIViewController+Trakt.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -428,6 +431,7 @@
 				E113FC5E2224D5F8004EBC71 /* UIColor+Trakt.swift in Sources */,
 				E113FC602224D6A0004EBC71 /* LoaderView.swift in Sources */,
 				E1A6410F220F485000C492C5 /* TraktClient.swift in Sources */,
+				E113FC682224EC88004EBC71 /* UIViewController+Trakt.swift in Sources */,
 				E1A64126220F6C2700C492C5 /* Movie.swift in Sources */,
 				E10897D32220A3DE001AAF48 /* Poster.swift in Sources */,
 				E1A64131220F720C00C492C5 /* SearchViewController.swift in Sources */,

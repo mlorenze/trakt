@@ -51,6 +51,8 @@ class SearchViewController: UIViewController, UIGestureRecognizerDelegate {
         let bottomViewTap = UITapGestureRecognizer(target: self, action: #selector(self.handleBottomViewTap(_:)))
         bottomViewTap.delegate = self
         self.bottomView.addGestureRecognizer(bottomViewTap)
+        
+        self.hideKeyboardWhenTappedAround()
     }
     
     private func updateLoadersUI(view: UIView){
@@ -82,7 +84,7 @@ class SearchViewController: UIViewController, UIGestureRecognizerDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.lastMoviesSearched = [Movie]()
+        self.searchBar.becomeFirstResponder()
     }
 
     private func searchMovies(page: Int, completion:  @escaping (_ movies: [Movie], _ fetchingMessage: String) -> Void) {
