@@ -1,2 +1,2 @@
 # trakt
-Trakt project (Belatrix)
+Trakt project
